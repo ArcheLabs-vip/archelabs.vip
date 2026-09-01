@@ -480,22 +480,61 @@ export function App() {
           </div>
         </section>
 
-        <section className="section-space relative overflow-hidden">
-          <div className="technical-grid absolute inset-0 opacity-50" aria-hidden="true" />
+        <section className="closing-cta section-space relative overflow-hidden" aria-labelledby="closing-cta-title">
+          <div className="technical-grid absolute inset-0 opacity-40" aria-hidden="true" />
+          <div className="closing-cta__glow" aria-hidden="true" />
           <Reveal className="page-shell relative">
-            <div className="max-w-4xl">
-              <p className="eyebrow">PRÓXIMO PROJETO</p>
-              <h2 className="display-balance mt-6 font-display text-5xl font-medium leading-[0.98] tracking-[-0.06em] md:text-7xl">
-                Sua empresa merece mais do que apenas estar online.
-              </h2>
-              <button
-                className="button button-primary mt-9"
-                type="button"
-                onClick={() => setSelectedPlan(recommendedPlan)}
-              >
-                Iniciar projeto
-                <ArrowUpRight aria-hidden="true" size={17} strokeWidth={1.7} />
-              </button>
+            <div className="closing-cta__panel">
+              <div className="closing-cta__topline">
+                <p className="eyebrow">PRÓXIMO PROJETO</p>
+                <p className="closing-cta__index" aria-hidden="true">ARCH / 001</p>
+              </div>
+
+              <div className="closing-cta__content">
+                <div className="closing-cta__statement">
+                  <h2
+                    id="closing-cta-title"
+                    className="display-balance font-display text-5xl font-medium leading-[0.96] tracking-[-0.06em] md:text-7xl"
+                  >
+                    Sua empresa merece <span>mais</span> do que apenas estar online.
+                  </h2>
+                  <p className="body-pretty closing-cta__support">
+                    Transforme sua presença digital em uma experiência que apresenta seu valor,
+                    inspira confiança e conduz o cliente para a próxima ação.
+                  </p>
+                </div>
+
+                <aside className="closing-cta__action" aria-label="Comece seu projeto">
+                  <p className="closing-cta__action-label">UM SITE PENSADO PARA</p>
+                  <ul className="closing-cta__benefits">
+                    {[
+                      "Comunicar com clareza",
+                      "Fortalecer sua marca",
+                      "Gerar novas oportunidades",
+                    ].map((benefit) => (
+                      <li key={benefit}>
+                        <Check aria-hidden="true" size={15} strokeWidth={2} />
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    className="button closing-cta__button"
+                    type="button"
+                    onClick={() => setSelectedPlan(recommendedPlan)}
+                  >
+                    Tirar meu projeto do papel
+                    <ArrowUpRight aria-hidden="true" size={18} strokeWidth={1.8} />
+                  </button>
+                  <p className="closing-cta__note">Conte sua ideia e receba um escopo inicial.</p>
+                </aside>
+              </div>
+
+              <div className="closing-cta__footer" aria-hidden="true">
+                <span>Estratégia</span>
+                <span>Design</span>
+                <span>Desenvolvimento</span>
+              </div>
             </div>
           </Reveal>
         </section>
