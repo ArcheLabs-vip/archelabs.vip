@@ -87,9 +87,18 @@ export interface RevisionPolicy {
 export interface ProjectPreview {
   name: string;
   category: string;
+  description: string;
   image: string;
   imageAlt: string;
   imagePosition?: string;
+}
+
+export interface Testimonial {
+  id: string;
+  quote: string;
+  name: string;
+  context: string;
+  initials: string;
 }
 
 export const navItems: NavItem[] = [
@@ -103,21 +112,73 @@ export const projectPreviews: ProjectPreview[] = [
   {
     name: "Arche Labs",
     category: "Landing page comercial",
+    description:
+      "Uma presença digital criada para explicar a oferta com clareza e transformar interesse em conversa comercial.",
     image: "/assets/projects/arche-hero.png",
     imageAlt: "Hero da landing page da Arche Labs em tela desktop",
   },
   {
     name: "Arche Pro",
     category: "Apresentação de oferta",
+    description:
+      "Planos organizados para reduzir dúvida, comparar escopos e levar o visitante à escolha certa.",
     image: "/assets/projects/arche-offer.png",
     imageAlt: "Seção de planos da Arche Labs em tela desktop",
   },
   {
     name: "Arche Mobile",
     category: "Experiência responsiva",
+    description:
+      "A mesma narrativa reconstruída para leitura rápida, navegação confortável e ação no celular.",
     image: "/assets/projects/arche-mobile.png",
     imageAlt: "Landing page completa da Arche Labs em tela mobile",
     imagePosition: "top center",
+  },
+];
+
+// Substitua pelos depoimentos aprovados dos clientes antes da publicação.
+export const testimonials: Testimonial[] = [
+  {
+    id: "clareza",
+    quote: "O processo foi muito claro do início ao fim. Eu sabia o que precisava enviar e o que aconteceria em cada etapa.",
+    name: "Cliente Arche",
+    context: "Serviços profissionais",
+    initials: "CA",
+  },
+  {
+    id: "mensagem",
+    quote: "A página finalmente conseguiu explicar nosso serviço sem complicar. Ficou direta, profissional e fácil de apresentar.",
+    name: "Cliente Arche",
+    context: "Consultoria",
+    initials: "CA",
+  },
+  {
+    id: "mobile",
+    quote: "No celular ficou tão boa quanto no computador. A navegação é rápida e o contato pelo WhatsApp está sempre simples.",
+    name: "Cliente Arche",
+    context: "Negócio local",
+    initials: "CA",
+  },
+  {
+    id: "direcao",
+    quote: "Cheguei com as ideias soltas e saí com uma apresentação organizada, coerente e muito mais segura para divulgar.",
+    name: "Cliente Arche",
+    context: "Profissional autônomo",
+    initials: "CA",
+  },
+  {
+    id: "entrega",
+    quote: "A entrega foi objetiva e bem acompanhada. Cada decisão tinha um motivo e os ajustes ficaram fáceis de aprovar.",
+    name: "Cliente Arche",
+    context: "Pequena empresa",
+    initials: "CA",
+  },
+  {
+    id: "resultado",
+    quote: "Agora temos um link que representa melhor o negócio e conduz o visitante para a conversa certa sem distrações.",
+    name: "Cliente Arche",
+    context: "Prestação de serviços",
+    initials: "CA",
   },
 ];
 
@@ -431,6 +492,7 @@ export const faqItems: FaqItem[] = [
 export const siteContent = {
   nav: navItems,
   projects: projectPreviews,
+  testimonials,
   pillars,
   services,
   differentials,

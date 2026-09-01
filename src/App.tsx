@@ -15,19 +15,21 @@ import {
 import { Brand } from "./components/Brand";
 import { Navbar } from "./components/Navbar";
 import { PlanModal } from "./components/PlanModal";
+import { PortfolioDeck } from "./components/PortfolioDeck";
 import { Preloader } from "./components/Preloader";
 import { ProjectShowcase } from "./components/ProjectShowcase";
 import { Reveal } from "./components/Reveal";
+import { TestimonialMarquee } from "./components/TestimonialMarquee";
 import {
   archeCare,
   differentials,
   faqItems,
   navItems,
-  pillars,
   plans,
   processSteps,
   projectPreviews,
   services,
+  testimonials,
   type Plan,
   type Service,
 } from "./content/site";
@@ -174,33 +176,22 @@ export function App() {
           </div>
         </section>
 
-        <section id="sobre" className="section-space border-t soft-divider">
-          <div className="page-shell grid grid-cols-1 gap-14 md:grid-cols-12 md:gap-8">
-            <Reveal className="md:col-span-5">
+        <section id="sobre" className="testimonial-section border-y soft-divider">
+          <div className="page-shell testimonial-section__intro">
+            <Reveal>
               <SectionIntro
-                title="Especialização no que precisa funcionar."
-                body="A Arche Labs cria Landing Pages para negócios que precisam apresentar valor, organizar a mensagem e gerar conversas comerciais."
+                title="Experiências que falam por si."
+                body="Relatos de quem precisava transformar uma oferta dispersa em uma presença digital clara, profissional e pronta para iniciar conversas."
               />
             </Reveal>
-
-            <div className="md:col-start-7 md:col-span-6">
-              {pillars.map((pillar, index) => (
-                <Reveal key={pillar.title} delay={index * 0.06}>
-                  <article className="grid grid-cols-[3.5rem_1fr] gap-5 border-t soft-divider py-7 first:pt-0 md:grid-cols-[5rem_1fr]">
-                    <span className="font-mono text-sm text-electric-light">{pillar.number}</span>
-                    <div>
-                      <h3 className="font-display text-2xl font-medium tracking-[-0.04em] text-ink">
-                        {pillar.title}
-                      </h3>
-                      <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">
-                        {pillar.description}
-                      </p>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
+            <p className="testimonial-section__note" aria-hidden="true">
+              EXPERIÊNCIAS DE CLIENTES / ARCHE LABS
+            </p>
           </div>
+
+          <Reveal className="testimonial-section__rail" delay={0.06}>
+            <TestimonialMarquee testimonials={testimonials} />
+          </Reveal>
         </section>
 
         <section id="servicos" className="section-space bg-graphite/55">
@@ -272,38 +263,10 @@ export function App() {
             </Reveal>
 
             <Reveal className="mt-14" delay={0.06}>
-              <div className="surface grid min-h-[28rem] grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-12">
-                <div className="flex flex-col justify-between p-7 md:col-span-5 md:p-10">
-                  <div>
-                    <p className="font-mono text-[0.7rem] tracking-[0.08em] text-electric-light">
-                      PORTFÓLIO EM PREPARAÇÃO
-                    </p>
-                    <h3 className="mt-5 font-display text-3xl font-medium tracking-[-0.045em] md:text-5xl">
-                      Este espaço será ocupado por trabalho publicado.
-                    </h3>
-                  </div>
-                  <button
-                    className="button button-ghost mt-10 w-fit"
-                    type="button"
-                    onClick={() => setSelectedPlan(recommendedPlan)}
-                  >
-                    Iniciar projeto
-                    <ArrowUpRight aria-hidden="true" size={17} strokeWidth={1.7} />
-                  </button>
-                </div>
-                <div className="relative min-h-[20rem] overflow-hidden border-t border-white/[0.08] md:col-span-7 md:border-l md:border-t-0">
-                  <img
-                    className="absolute inset-0 h-full w-full object-cover"
-                    src="/assets/brand/arche-labs-logo-optimized.jpg"
-                    alt="Símbolo oficial da Arche Labs"
-                    width="1254"
-                    height="1254"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-graphite/70 via-transparent to-transparent" aria-hidden="true" />
-                </div>
-              </div>
+              <PortfolioDeck
+                projects={projectPreviews}
+                onStartProject={() => setSelectedPlan(recommendedPlan)}
+              />
             </Reveal>
           </div>
         </section>
