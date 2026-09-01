@@ -23,6 +23,7 @@ test.describe("Arche Labs home", () => {
 
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/", { waitUntil: "networkidle" });
+    await expect(page.locator(".preloader")).toBeHidden({ timeout: 5_000 });
 
     const heroHeading = page.getByRole("heading", { level: 1 });
     await expect(heroHeading).toContainText("Landing pages criadas");
@@ -32,6 +33,11 @@ test.describe("Arche Labs home", () => {
       return element.getBoundingClientRect().height / Number.parseFloat(style.lineHeight);
     });
     expect(headingLines).toBeLessThanOrEqual(2.1);
+    const showcase = page.getByRole("region", { name: "Prévia animada de trabalhos da Arche Labs" });
+    await expect(showcase).toBeVisible();
+    await expect(showcase.locator(".project-showcase__category")).toBeVisible();
+    await expect(showcase.locator(".project-showcase__name")).toBeVisible();
+    await expect(showcase.getByRole("button")).toHaveCount(0);
     await page.screenshot({ path: "artifacts/hero-desktop.png" });
 
     const primaryCta = page.getByRole("button", { name: "Iniciar projeto" }).first();
@@ -76,6 +82,7 @@ test.describe("Arche Labs home", () => {
   test("mobile navigation and responsive layout", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/", { waitUntil: "networkidle" });
+    await expect(page.locator(".preloader")).toBeHidden({ timeout: 5_000 });
     await page.screenshot({ path: "artifacts/hero-mobile.png" });
 
     expect(

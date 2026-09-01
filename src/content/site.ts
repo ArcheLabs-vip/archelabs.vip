@@ -84,11 +84,41 @@ export interface RevisionPolicy {
   scopeChange: string;
 }
 
+export interface ProjectPreview {
+  name: string;
+  category: string;
+  image: string;
+  imageAlt: string;
+  imagePosition?: string;
+}
+
 export const navItems: NavItem[] = [
   { label: "Projetos", href: "#projetos" },
   { label: "Serviços", href: "#servicos" },
   { label: "Processo", href: "#processo" },
   { label: "Sobre", href: "#sobre" },
+];
+
+export const projectPreviews: ProjectPreview[] = [
+  {
+    name: "Arche Labs",
+    category: "Landing page comercial",
+    image: "/assets/projects/arche-hero.png",
+    imageAlt: "Hero da landing page da Arche Labs em tela desktop",
+  },
+  {
+    name: "Arche Pro",
+    category: "Apresentação de oferta",
+    image: "/assets/projects/arche-offer.png",
+    imageAlt: "Seção de planos da Arche Labs em tela desktop",
+  },
+  {
+    name: "Arche Mobile",
+    category: "Experiência responsiva",
+    image: "/assets/projects/arche-mobile.png",
+    imageAlt: "Landing page completa da Arche Labs em tela mobile",
+    imagePosition: "top center",
+  },
 ];
 
 export const pillars: Pillar[] = [
@@ -400,6 +430,7 @@ export const faqItems: FaqItem[] = [
 
 export const siteContent = {
   nav: navItems,
+  projects: projectPreviews,
   pillars,
   services,
   differentials,

@@ -16,6 +16,7 @@ import { Brand } from "./components/Brand";
 import { Navbar } from "./components/Navbar";
 import { PlanModal } from "./components/PlanModal";
 import { Preloader } from "./components/Preloader";
+import { ProjectShowcase } from "./components/ProjectShowcase";
 import { Reveal } from "./components/Reveal";
 import {
   archeCare,
@@ -25,6 +26,7 @@ import {
   pillars,
   plans,
   processSteps,
+  projectPreviews,
   services,
   type Plan,
   type Service,
@@ -167,16 +169,7 @@ export function App() {
             </Reveal>
 
             <Reveal className="md:col-span-5" delay={0.08}>
-              <div className="hero-media">
-                <img
-                  src="/assets/brand/arche-labs-logo-optimized.jpg"
-                  alt="Símbolo da Arche Labs em branco e azul sobre fundo escuro"
-                  width="1254"
-                  height="1254"
-                  fetchPriority="high"
-                  decoding="async"
-                />
-              </div>
+              <ProjectShowcase projects={projectPreviews} />
             </Reveal>
           </div>
         </section>
@@ -355,20 +348,27 @@ export function App() {
               />
             </Reveal>
 
-            <div className="process-rail -mr-[var(--page-pad)] mt-14 overflow-x-auto pr-[var(--page-pad)]">
-              <div className="grid min-w-[70rem] grid-cols-6 border-t border-white/[0.12]">
-                {processSteps.map((step, index) => (
-                  <Reveal key={step.label} delay={index * 0.045}>
-                    <article className="relative min-h-64 border-l border-white/[0.08] px-5 py-7 first:border-l-0">
-                      <span className="absolute -top-[5px] left-5 h-2.5 w-2.5 bg-electric" aria-hidden="true" />
-                      <span className="font-mono text-xs text-electric-light">{step.number}</span>
-                      <h3 className="mt-20 font-display text-xl font-medium tracking-[-0.035em] text-ink">
-                        {step.title}
-                      </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-muted">{step.description}</p>
-                    </article>
-                  </Reveal>
-                ))}
+            <div className="process-rail -mr-[var(--page-pad)] mt-14 overflow-hidden pr-[var(--page-pad)]">
+              <div className="flex w-max animate-marquee border-t border-white/[0.12] hover:[animation-play-state:paused]">
+                {[...processSteps, ...processSteps].map((step, index) => {
+                  const isDuplicate = index >= processSteps.length;
+                  return (
+                    <Reveal 
+                      key={`${step.label}-${index}`} 
+                      delay={isDuplicate ? 0 : (index % processSteps.length) * 0.045}
+                      className="w-[85vw] shrink-0 sm:w-[22rem] md:w-[20rem]"
+                    >
+                      <article className={`relative h-full min-h-64 border-l border-white/[0.08] px-5 py-7 ${index === 0 ? 'border-l-0' : ''}`}>
+                        <span className="absolute -top-[5px] left-5 h-2.5 w-2.5 bg-electric" aria-hidden="true" />
+                        <span className="font-mono text-xs text-electric-light">{step.number}</span>
+                        <h3 className="mt-20 font-display text-xl font-medium tracking-[-0.035em] text-ink">
+                          {step.title}
+                        </h3>
+                        <p className="mt-3 text-sm leading-relaxed text-muted">{step.description}</p>
+                      </article>
+                    </Reveal>
+                  );
+                })}
               </div>
             </div>
           </div>
