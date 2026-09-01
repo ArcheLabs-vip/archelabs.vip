@@ -189,7 +189,7 @@ export function App() {
             </p>
           </div>
 
-          <Reveal className="testimonial-section__rail" delay={0.06}>
+          <Reveal className="page-shell testimonial-section__rail" delay={0.06}>
             <TestimonialMarquee testimonials={testimonials} />
           </Reveal>
         </section>

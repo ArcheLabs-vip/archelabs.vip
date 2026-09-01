@@ -49,6 +49,17 @@ test.describe("Arche Labs home", () => {
       await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
     ).toBe(true);
 
+    const testimonialIntro = page.locator(".testimonial-section__intro");
+    const testimonialRail = page.locator(".testimonial-section__rail");
+    const [testimonialIntroBox, testimonialRailBox] = await Promise.all([
+      testimonialIntro.boundingBox(),
+      testimonialRail.boundingBox(),
+    ]);
+    expect(testimonialIntroBox).not.toBeNull();
+    expect(testimonialRailBox).not.toBeNull();
+    expect(testimonialRailBox?.x).toBeCloseTo(testimonialIntroBox?.x ?? 0, 0);
+    expect(testimonialRailBox?.width).toBeCloseTo(testimonialIntroBox?.width ?? 0, 0);
+
     await primaryCta.click();
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();

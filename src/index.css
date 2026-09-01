@@ -1413,7 +1413,6 @@ details[open] .faq-icon {
 @media (prefers-reduced-motion: reduce) {
   .testimonial-marquee {
     overflow-x: auto;
-    padding-inline: var(--page-pad);
     scrollbar-width: thin;
     mask-image: none;
     -webkit-mask-image: none;
