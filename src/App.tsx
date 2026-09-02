@@ -1,16 +1,17 @@
 import { useCallback, useState, type ComponentType } from "react";
 import {
+  Activity,
   ArrowRight,
   ArrowUpRight,
   Check,
+  DatabaseBackup,
   Gauge,
-  Layers3,
   LifeBuoy,
   MousePointerClick,
-  PanelTop,
   Plus,
   ShieldCheck,
   Workflow,
+  Wrench,
 } from "lucide-react";
 import { Brand } from "./components/Brand";
 import { Navbar } from "./components/Navbar";
@@ -22,16 +23,15 @@ import { Reveal } from "./components/Reveal";
 import { TestimonialMarquee } from "./components/TestimonialMarquee";
 import {
   archeCare,
+  careFeatures,
   differentials,
   faqItems,
   navItems,
   plans,
   processSteps,
   projectPreviews,
-  services,
   testimonials,
   type Plan,
-  type Service,
 } from "./content/site";
 
 type IconComponent = ComponentType<{
@@ -41,13 +41,16 @@ type IconComponent = ComponentType<{
   "aria-hidden"?: boolean | "true" | "false";
 }>;
 
-const serviceIcons: Record<Service["id"], IconComponent> = {
-  "landing-pages": PanelTop,
-  "content-panel": Layers3,
-  "arche-care": LifeBuoy,
-};
+
 
 const differentialIcons: IconComponent[] = [Workflow, ShieldCheck, Gauge, MousePointerClick];
+
+const careIconMap: Record<string, { Icon: IconComponent; animation: string }> = {
+  activity: { Icon: Activity, animation: "care-icon-pulse" },
+  shield: { Icon: ShieldCheck, animation: "care-icon-glow" },
+  database: { Icon: DatabaseBackup, animation: "care-icon-glow" },
+  wrench: { Icon: Wrench, animation: "care-icon-spin" },
+};
 
 function SectionIntro({ title, body }: { title: string; body: string }) {
   return (
@@ -146,7 +149,7 @@ export function App() {
           <div className="technical-grid technical-grid-fade absolute inset-0 opacity-60" aria-hidden="true" />
           <div className="page-shell relative grid min-h-[calc(100dvh-72px)] grid-cols-1 items-center gap-10 py-12 md:grid-cols-12 md:py-16">
             <Reveal className="md:col-span-7">
-              <p className="eyebrow">LANDING PAGES / NEGÓCIOS</p>
+              <p className="eyebrow">ARCHE LABS — PRESENÇA QUE CONVERTE</p>
               <h1 className="display-balance mt-5 font-display text-[clamp(2.85rem,5vw,4.1rem)] font-medium leading-[0.95] tracking-[-0.065em] text-ink">
                 <span className="block">Landing pages criadas</span>
                 <span className="block text-[#b9c0cc]">para gerar oportunidades.</span>
@@ -194,64 +197,7 @@ export function App() {
           </Reveal>
         </section>
 
-        <section id="servicos" className="section-space bg-graphite/55">
-          <div className="page-shell">
-            <Reveal>
-              <p className="eyebrow">SERVIÇOS ATUAIS</p>
-              <div className="mt-5">
-                <SectionIntro
-                  title="Uma oferta simples, sem pacotes confusos."
-                  body="Landing Pages como produto principal, com edição de conteúdo e continuidade técnica quando fizer sentido para o negócio."
-                />
-              </div>
-            </Reveal>
 
-            <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-12 md:grid-rows-2">
-              {services.map((service, index) => {
-                const Icon = serviceIcons[service.id];
-                const isPrimary = service.id === "landing-pages";
-
-                return (
-                  <Reveal
-                    key={service.id}
-                    className={isPrimary ? "md:col-span-7 md:row-span-2" : "md:col-span-5"}
-                    delay={index * 0.06}
-                  >
-                    <article
-                      className={`surface surface-interactive group h-full rounded-2xl p-6 transition-transform duration-300 md:p-8 ${
-                        isPrimary ? "technical-grid min-h-[30rem]" : "min-h-[14.5rem]"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-6">
-                        <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/[0.1] bg-obsidian text-electric-light">
-                          <Icon aria-hidden="true" size={21} strokeWidth={1.6} />
-                        </span>
-                        <span className="font-mono text-xs text-muted">{service.price}</span>
-                      </div>
-                      <div className={isPrimary ? "mt-24 md:mt-32" : "mt-10"}>
-                        <h3 className="max-w-lg font-display text-3xl font-medium tracking-[-0.045em] text-ink md:text-4xl">
-                          {service.name}
-                        </h3>
-                        <p className="body-pretty mt-4 max-w-xl text-sm leading-relaxed text-muted">
-                          {service.description}
-                        </p>
-                        {isPrimary ? (
-                          <ul className="mt-7 grid gap-3 sm:grid-cols-3">
-                            {service.highlights.map((highlight) => (
-                              <li key={highlight} className="text-sm leading-relaxed text-[#c8ced8]">
-                                {highlight}
-                              </li>
-                            ))}
-                          </ul>
-                        ) : null}
-                      </div>
-                    </article>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-        </section>
 
         <section id="projetos" className="section-space">
           <div className="page-shell">
@@ -358,51 +304,101 @@ export function App() {
               </Reveal>
             </div>
 
-            <p className="mt-6 max-w-3xl text-sm leading-relaxed text-muted">
-              Os prazos começam após o recebimento das informações e materiais necessários. Domínio e serviços de terceiros não estão incluídos no preço padrão.
-            </p>
+            <div className="mt-6 rounded-xl border border-white/[0.07] bg-white/[0.02] px-5 py-4">
+              <p className="max-w-3xl text-sm leading-relaxed text-muted">
+                Os prazos começam após o recebimento das informações e materiais necessários. Domínio e serviços de terceiros não estão incluídos no preço padrão.
+              </p>
+            </div>
           </div>
         </section>
 
         <section id="arche-care" aria-labelledby="arche-care-heading" className="section-space">
           <div className="page-shell">
             <Reveal>
-              <div className="surface-strong grid overflow-hidden rounded-2xl md:grid-cols-12">
-                <div className="technical-grid p-7 md:col-span-5 md:p-10 lg:p-12">
-                  <LifeBuoy aria-hidden="true" className="text-electric-light" size={28} strokeWidth={1.5} />
-                  <h2 id="arche-care-heading" className="mt-12 font-display text-4xl font-medium tracking-[-0.05em] md:text-6xl">
-                    Seu site publicado. A operação continua.
-                  </h2>
-                  <p className="mt-6 max-w-md text-base leading-relaxed text-muted">
-                    {archeCare.positioning}
-                  </p>
-                  <p className="mt-10 font-display text-5xl font-medium tracking-[-0.055em]">
-                    {archeCare.price}
-                    <span className="ml-1 font-sans text-base font-normal tracking-normal text-muted">
-                      {archeCare.cadence}
-                    </span>
-                  </p>
-                </div>
-                <div className="border-t border-white/[0.08] p-7 md:col-span-7 md:border-l md:border-t-0 md:p-10 lg:p-12">
-                  <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
-                    {archeCare.includes.map((item) => (
-                      <div key={item} className="flex items-center gap-3 border-b border-white/[0.07] pb-4 text-sm text-[#c8ced8]">
-                        <Check aria-hidden="true" className="shrink-0 text-electric-light" size={16} strokeWidth={1.8} />
-                        {item}
-                      </div>
-                    ))}
+              <div className="surface-strong overflow-hidden rounded-2xl">
+                <div className="grid md:grid-cols-12">
+                  {/* Left: Copy + Status + CTA */}
+                  <div className="technical-grid relative p-7 md:col-span-6 md:p-10 lg:p-12">
+                    <div className="live-status">
+                      <span className="live-dot" aria-hidden="true" />
+                      <span className="font-mono text-[0.68rem] tracking-[0.05em] text-electric-light">
+                        Operacional
+                      </span>
+                    </div>
+
+                    <h2 id="arche-care-heading" className="mt-10 font-display text-4xl font-medium tracking-[-0.05em] md:text-5xl lg:text-6xl">
+                      Seu site no ar.{" "}
+                      <span className="text-muted">A operação continua.</span>
+                    </h2>
+
+                    <p className="mt-6 max-w-md text-base leading-relaxed text-muted">
+                      {archeCare.positioning}
+                    </p>
+
+                    <a
+                      className="button button-secondary mt-10"
+                      href="#planos"
+                    >
+                      Incluir ao escolher um plano
+                      <ArrowUpRight aria-hidden="true" size={17} strokeWidth={1.7} />
+                    </a>
                   </div>
-                  <p className="mt-8 text-sm leading-relaxed text-muted">
+
+                  {/* Right: Orbit (desktop) */}
+                  <div className="hidden items-center justify-center border-l border-white/[0.08] md:col-span-6 md:flex">
+                    <div className="orbit-container" aria-hidden="true">
+                      <div className="orbit-center">
+                        <LifeBuoy className="text-electric-light" size={24} strokeWidth={1.5} />
+                      </div>
+                      <div className="orbit-ring orbit-ring--1">
+                        <span className="orbit-dot" />
+                      </div>
+                      <div className="orbit-ring orbit-ring--2">
+                        <span className="orbit-dot" />
+                        <span className="orbit-dot" />
+                      </div>
+                      <div className="orbit-ring orbit-ring--3">
+                        <span className="orbit-dot" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom: Feature Cards */}
+                <div className="border-t border-white/[0.08] p-7 md:p-10 lg:p-12">
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    {careFeatures.map((feature, index) => {
+                      const mapped = careIconMap[feature.icon];
+                      const FeatureIcon = mapped?.Icon ?? LifeBuoy;
+                      const iconAnim = mapped?.animation ?? "";
+
+                      return (
+                        <Reveal key={feature.icon} delay={index * 0.06}>
+                          <article className="care-card h-full">
+                            <div className="care-card__icon">
+                              <FeatureIcon
+                                aria-hidden="true"
+                                className={iconAnim}
+                                size={18}
+                                strokeWidth={1.6}
+                              />
+                            </div>
+                            <h3 className="mt-4 text-sm font-semibold text-ink">
+                              {feature.title}
+                            </h3>
+                            <p className="mt-2 text-[0.8rem] leading-relaxed text-muted">
+                              {feature.detail}
+                            </p>
+                          </article>
+                        </Reveal>
+                      );
+                    })}
+                  </div>
+
+                  <p className="mt-8 max-w-2xl text-sm leading-relaxed text-muted">
+                    <span className="text-electric-light">ℹ</span>{" "}
                     Pequenas alterações incluem {archeCare.smallChangesDefinition.toLowerCase()}
                   </p>
-                  <button
-                    className="button button-secondary mt-8"
-                    type="button"
-                    onClick={() => setSelectedPlan(recommendedPlan)}
-                  >
-                    Iniciar projeto
-                    <ArrowUpRight aria-hidden="true" size={17} strokeWidth={1.7} />
-                  </button>
                 </div>
               </div>
             </Reveal>
@@ -517,9 +513,6 @@ export function App() {
                 {item.label}
               </a>
             ))}
-            <a href="#planos" className="text-sm text-muted hover:text-ink">
-              Planos
-            </a>
             <a href="#faq" className="text-sm text-muted hover:text-ink">
               FAQ
             </a>

@@ -51,6 +51,12 @@ export interface Plan {
   ctaLabel: string;
 }
 
+export interface CareFeature {
+  icon: string;
+  title: string;
+  detail: string;
+}
+
 export interface CarePlan {
   id: "arche-care";
   name: string;
@@ -103,9 +109,9 @@ export interface Testimonial {
 
 export const navItems: NavItem[] = [
   { label: "Projetos", href: "#projetos" },
-  { label: "Serviços", href: "#servicos" },
+  { label: "Diferenciais", href: "#diferenciais" },
   { label: "Processo", href: "#processo" },
-  { label: "Sobre", href: "#sobre" },
+  { label: "Planos", href: "#planos" },
 ];
 
 export const projectPreviews: ProjectPreview[] = [
@@ -242,24 +248,26 @@ export const differentials: Differential[] = [
   {
     number: "01",
     title: "Estrutura profissional",
-    description: "Processo definido do onboarding à publicação.",
+    description:
+      "Cada projeto segue um processo claro com etapas definidas, prazos comunicados e entregas organizadas. Você sabe o que acontece em cada fase, o que precisa enviar e quando receberá a próxima versão.",
   },
   {
     number: "02",
     title: "O cliente continua dono dos ativos",
     description:
-      "Domínio, infraestrutura e código seguem princípios de portabilidade.",
+      "Domínio, código e infraestrutura ficam no seu nome. Se decidir trocar de fornecedor, leva tudo com você sem depender de liberação ou taxa de transferência.",
   },
   {
     number: "03",
-    title: "Performance",
-    description: "Infraestrutura moderna e enxuta.",
+    title: "Performance desde o primeiro acesso",
+    description:
+      "Páginas construídas com código enxuto, imagens otimizadas e carregamento rápido. Um site lento perde visitas antes mesmo de mostrar sua oferta — aqui isso não acontece.",
   },
   {
     number: "04",
-    title: "Conversão",
+    title: "Feito para converter, não só para existir",
     description:
-      "Estrutura orientada para CTA, WhatsApp e geração de contatos.",
+      "Cada seção é pensada para conduzir o visitante à ação: botão de WhatsApp acessível, formulário de contato visível e estrutura de conteúdo que reduz dúvidas antes do clique.",
   },
 ];
 
@@ -268,37 +276,43 @@ export const processSteps: ProcessStep[] = [
     number: "01",
     label: "DISCOVERY",
     title: "Descoberta",
-    description: "Briefing e materiais",
+    description:
+      "Você responde um briefing objetivo e envia os materiais disponíveis. A partir disso, entendemos o negócio, o público e o que a página precisa comunicar.",
   },
   {
     number: "02",
     label: "STRATEGY",
     title: "Estratégia",
-    description: "Estrutura e direção",
+    description:
+      "Definimos a estrutura de seções, a hierarquia de informações e a direção visual antes de começar a construir. Isso evita retrabalho e mantém o projeto focado.",
   },
   {
     number: "03",
     label: "BUILD",
     title: "Construção",
-    description: "Design e desenvolvimento",
+    description:
+      "Design e desenvolvimento acontecem juntos. Cada seção é construída com código limpo, responsivo e otimizado para performance desde o início.",
   },
   {
     number: "04",
     label: "REVIEW",
     title: "Revisão",
-    description: "Apresentação e ajustes",
+    description:
+      "Você recebe a versão navegável para avaliar. As revisões incluídas no plano são aplicadas nesta etapa, com prazo e escopo definidos.",
   },
   {
     number: "05",
     label: "LAUNCH",
     title: "Lançamento",
-    description: "Publicação",
+    description:
+      "Configuração de domínio, SSL e publicação. O site vai ao ar com tudo verificado — links, formulários, responsividade e velocidade.",
   },
   {
     number: "06",
     label: "CONTINUITY",
     title: "Continuidade",
-    description: "Handoff ou Arche Care",
+    description:
+      "Após a entrega, você escolhe: recebe os acessos completos para gerir por conta própria ou contrata o Arche Care para manutenção contínua.",
   },
 ];
 
@@ -409,7 +423,8 @@ export const archeCare: CarePlan = {
   name: "Arche Care",
   price: "R$ 99",
   cadence: "/mês",
-  positioning: "Gestão e manutenção contínua do site.",
+  positioning:
+    "Após a entrega, seu site segue acompanhado: hospedagem, segurança, backups e manutenção técnica por apenas R$ 99/mês.",
   description:
     "O plano padrão oferecido após a entrega para manter o site acompanhado pela Arche Labs.",
   includes: [
@@ -424,8 +439,31 @@ export const archeCare: CarePlan = {
   ],
   smallChangesDefinition:
     "Ajustes simples em textos, imagens, links e informações existentes, sem criação de novas páginas, seções ou funcionalidades.",
-  ctaLabel: "Adicionar Arche Care",
+  ctaLabel: "Incluir ao escolher um plano",
 };
+
+export const careFeatures: CareFeature[] = [
+  {
+    icon: "activity",
+    title: "Uptime 24/7",
+    detail: "Monitoramento contínuo para garantir que seu site esteja sempre no ar.",
+  },
+  {
+    icon: "shield",
+    title: "SSL & Segurança",
+    detail: "Certificado SSL ativo e atualizações de segurança aplicadas.",
+  },
+  {
+    icon: "database",
+    title: "Backup automático",
+    detail: "Cópias de segurança para restaurar o site a qualquer momento.",
+  },
+  {
+    icon: "wrench",
+    title: "Manutenção técnica",
+    detail: "Atualizações, correções e ajustes técnicos sem você se preocupar.",
+  },
+];
 
 export const revisionPolicy: RevisionPolicy = {
   simple: {
