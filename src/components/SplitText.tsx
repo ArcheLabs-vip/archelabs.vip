@@ -39,10 +39,7 @@ export function SplitText({
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    if (reduced) {
-      setIsVisible(true);
-      return;
-    }
+    if (reduced) return;
 
     const el = ref.current;
     if (!el) return;
@@ -62,6 +59,7 @@ export function SplitText({
   }, [reduced]);
 
   let wordIndex = 0;
+  const isRevealed = reduced || isVisible;
 
   return (
     <Tag ref={ref} className={className}>
@@ -75,7 +73,7 @@ export function SplitText({
               return (
                 <span key={`${lineIdx}-${wi}`}>
                   <span
-                    className={`split-word ${isVisible ? "split-word--visible" : ""}`}
+                    className={`split-word ${isRevealed ? "split-word--visible" : ""}`}
                     style={{ "--word-delay": `${delay}s` } as CSSProperties}
                   >
                     {word}

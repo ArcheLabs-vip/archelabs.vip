@@ -38,5 +38,4 @@ npm run test:e2e
 ## Assets de marca
 
 - Original de referência: `referencia/logo.png`
-- Cópia preservada: `public/assets/brand/arche-labs-logo.png`
 - Variante otimizada usada no site: `public/assets/brand/arche-labs-logo-optimized.jpg`

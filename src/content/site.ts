@@ -5,21 +5,6 @@ export interface NavItem {
   href: string;
 }
 
-export interface Pillar {
-  number: string;
-  title: string;
-  description: string;
-}
-
-export interface Service {
-  id: "landing-pages" | "content-panel" | "arche-care";
-  number: string;
-  name: string;
-  description: string;
-  price: string;
-  highlights: string[];
-}
-
 export interface Differential {
   number: string;
   title: string;
@@ -74,31 +59,6 @@ export interface FaqItem {
   answer: string;
 }
 
-export interface RevisionPolicy {
-  simple: {
-    name: string;
-    deadline: string;
-    additionalPrice: string;
-    description: string;
-  };
-  major: {
-    name: string;
-    deadline: string;
-    price: string;
-    description: string;
-  };
-  scopeChange: string;
-}
-
-export interface ProjectPreview {
-  name: string;
-  category: string;
-  description: string;
-  image: string;
-  imageAlt: string;
-  imagePosition?: string;
-}
-
 export interface Testimonial {
   id: string;
   quote: string;
@@ -112,34 +72,6 @@ export const navItems: NavItem[] = [
   { label: "Diferenciais", href: "#diferenciais" },
   { label: "Processo", href: "#processo" },
   { label: "Planos", href: "#planos" },
-];
-
-export const projectPreviews: ProjectPreview[] = [
-  {
-    name: "Arche Labs",
-    category: "Landing page comercial",
-    description:
-      "Uma presença digital criada para explicar a oferta com clareza e transformar interesse em conversa comercial.",
-    image: "/assets/projects/arche-hero.png",
-    imageAlt: "Hero da landing page da Arche Labs em tela desktop",
-  },
-  {
-    name: "Arche Pro",
-    category: "Apresentação de oferta",
-    description:
-      "Planos organizados para reduzir dúvida, comparar escopos e levar o visitante à escolha certa.",
-    image: "/assets/projects/arche-offer.png",
-    imageAlt: "Seção de planos da Arche Labs em tela desktop",
-  },
-  {
-    name: "Arche Mobile",
-    category: "Experiência responsiva",
-    description:
-      "A mesma narrativa reconstruída para leitura rápida, navegação confortável e ação no celular.",
-    image: "/assets/projects/arche-mobile.png",
-    imageAlt: "Landing page completa da Arche Labs em tela mobile",
-    imagePosition: "top center",
-  },
 ];
 
 // Substitua pelos depoimentos aprovados dos clientes antes da publicação.
@@ -185,62 +117,6 @@ export const testimonials: Testimonial[] = [
     name: "Cliente Arche",
     context: "Prestação de serviços",
     initials: "CA",
-  },
-];
-
-export const pillars: Pillar[] = [
-  {
-    number: "01",
-    title: "Presença",
-    description: "Apresente sua empresa de forma profissional.",
-  },
-  {
-    number: "02",
-    title: "Conversão",
-    description:
-      "Direcione visitantes para contato, orçamento ou WhatsApp.",
-  },
-  {
-    number: "03",
-    title: "Performance",
-    description: "Experiência rápida, responsiva e preparada para crescer.",
-  },
-];
-
-export const services: Service[] = [
-  {
-    id: "landing-pages",
-    number: "01",
-    name: "Landing Pages",
-    description:
-      "Landing Pages profissionais para apresentar serviços, gerar contatos, receber pedidos de orçamento e converter visitantes em clientes.",
-    price: "A partir de R$ 697",
-    highlights: [
-      "Página responsiva",
-      "Integração com WhatsApp",
-      "Estrutura preparada para campanhas futuras",
-    ],
-  },
-  {
-    id: "content-panel",
-    number: "02",
-    name: "Painel de edição de conteúdo",
-    description:
-      "Edite conteúdos básicos do site sem precisar solicitar cada alteração à Arche Labs.",
-    price: "R$ 300",
-    highlights: [
-      "Configuração completa do painel e liberação de acessos",
-      "Textos e imagens editáveis",
-      "Contratação independente do Arche Care",
-    ],
-  },
-  {
-    id: "arche-care",
-    number: "03",
-    name: "Arche Care",
-    description: "Gestão e manutenção contínua do site.",
-    price: "R$ 99/mês",
-    highlights: ["Hospedagem e SSL", "Monitoramento básico", "Suporte"],
   },
 ];
 
@@ -463,25 +339,6 @@ export const careFeatures: CareFeature[] = [
   },
 ];
 
-export const revisionPolicy: RevisionPolicy = {
-  simple: {
-    name: "Alteração simples",
-    deadline: "1 a 2 dias úteis",
-    additionalPrice: "R$ 150 por rodada",
-    description:
-      "Ajustes que não alteram de forma relevante a estrutura principal da Landing Page. Cada rodada corresponde a um conjunto consolidado de alterações enviado após a apresentação de uma versão do projeto.",
-  },
-  major: {
-    name: "Alteração maior",
-    deadline: "3 a 5 dias úteis",
-    price: "R$ 300 por rodada",
-    description:
-      "Mudanças mais extensas que exigem retrabalho relevante, mas ainda permanecem dentro do escopo originalmente contratado. São cobradas separadamente, mesmo quando ainda existem revisões simples disponíveis.",
-  },
-  scopeChange:
-    "Novas páginas, funcionalidades, integrações ou requisitos não previstos no escopo aprovado exigem novo orçamento e novo prazo.",
-};
-
 export const faqItems: FaqItem[] = [
   {
     question: "Quanto tempo demora?",
@@ -524,19 +381,3 @@ export const faqItems: FaqItem[] = [
       "Sim. Depois das rodadas incluídas, uma revisão simples adicional custa R$ 150 e leva de 1 a 2 dias úteis. Uma alteração maior custa R$ 300 e leva de 3 a 5 dias úteis. Mudanças de escopo recebem orçamento e prazo próprios.",
   },
 ];
-
-export const siteContent = {
-  nav: navItems,
-  projects: projectPreviews,
-  testimonials,
-  pillars,
-  services,
-  differentials,
-  process: processSteps,
-  plans,
-  care: archeCare,
-  faq: faqItems,
-  revisions: revisionPolicy,
-};
-
-export default siteContent;

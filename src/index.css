@@ -288,266 +288,6 @@ a.button:active {
   white-space: nowrap;
 }
 
-.portfolio-deck {
-  --deck-yellow: #f2c94c;
-  --deck-line: rgb(242 201 76 / 0.26);
-  position: relative;
-  padding: 1.25rem;
-  overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 0.1);
-  border-radius: 1rem;
-  background: #070805;
-  box-shadow: 0 2rem 5rem rgb(0 0 0 / 0.28);
-}
-
-.portfolio-deck::before {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  content: "";
-  background: linear-gradient(115deg, rgb(242 201 76 / 0.035), transparent 34%);
-}
-
-.portfolio-deck__toolbar {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  min-height: 3.5rem;
-  padding: 0 0.2rem 1rem;
-  font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.14em;
-  color: var(--deck-yellow);
-  text-transform: uppercase;
-}
-
-.portfolio-deck__toolbar p {
-  margin: 0;
-}
-
-.portfolio-deck__focus-label {
-  text-align: right;
-}
-
-.portfolio-deck__shuffle {
-  display: inline-flex;
-  min-height: 2.5rem;
-  align-items: center;
-  gap: 0.6rem;
-  border: 1px solid var(--deck-line);
-  border-radius: 0.45rem;
-  background: #0d0e09;
-  color: #f7e5a8;
-  padding: 0.6rem 0.85rem;
-  font: inherit;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-.portfolio-deck__shuffle:hover {
-  border-color: rgb(242 201 76 / 0.64);
-  background: #17170d;
-}
-
-.portfolio-deck__layout {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(17rem, 0.92fr);
-  gap: 1rem;
-}
-
-.portfolio-deck__rail {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.9rem;
-  align-content: center;
-}
-
-.portfolio-tile {
-  display: grid;
-  min-width: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 0.14);
-  border-radius: 0.75rem;
-  background: #12130e;
-  color: #f7f4e9;
-  text-align: left;
-  cursor: pointer;
-  box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 0.2);
-  transform: rotate(-0.8deg);
-  animation: portfolio-card-in 520ms var(--ease-precise) both;
-}
-
-.portfolio-tile:nth-child(2) {
-  transform: rotate(0.7deg);
-  animation-delay: 45ms;
-}
-
-.portfolio-tile:nth-child(3) {
-  grid-column: 1 / -1;
-  width: calc(50% - 0.45rem);
-  justify-self: center;
-  transform: rotate(0.3deg);
-  animation-delay: 90ms;
-}
-
-.portfolio-tile:hover {
-  border-color: rgb(242 201 76 / 0.68);
-  transform: rotate(0deg) translateY(-0.2rem);
-}
-
-.portfolio-tile__visual {
-  display: block;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: #090a07;
-}
-
-.portfolio-tile__visual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  filter: saturate(0.84) contrast(1.03);
-  transition: filter 350ms var(--ease-precise), transform 650ms var(--ease-precise);
-}
-
-.portfolio-tile:hover img,
-.portfolio-tile[data-active="true"] img {
-  filter: saturate(1) contrast(1);
-  transform: scale(1.025);
-}
-
-.portfolio-tile__meta {
-  display: grid;
-  gap: 0.35rem;
-  padding: 0.95rem 1rem 1.05rem;
-}
-
-.portfolio-tile__meta span {
-  overflow: hidden;
-  font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-  color: #aaa58f;
-  text-overflow: ellipsis;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.portfolio-tile__meta strong {
-  font-family: "Space Grotesk Variable", "Space Grotesk", sans-serif;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.portfolio-feature {
-  overflow: hidden;
-  border: 1px solid rgb(242 201 76 / 0.48);
-  border-radius: 0.75rem;
-  background: #15150e;
-  box-shadow: 0 1.5rem 3.5rem rgb(0 0 0 / 0.3);
-  animation: portfolio-feature-in 560ms var(--ease-precise) both;
-}
-
-.portfolio-feature__visual {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: #0a0b08;
-}
-
-.portfolio-feature__visual::after {
-  position: absolute;
-  inset: auto 0 0;
-  height: 38%;
-  pointer-events: none;
-  content: "";
-  background: linear-gradient(transparent, rgb(10 10 6 / 0.78));
-}
-
-.portfolio-feature__visual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-}
-
-.portfolio-feature__visual > span {
-  position: absolute;
-  top: 0.85rem;
-  left: 0.85rem;
-  z-index: 2;
-  border-radius: 0.3rem;
-  background: var(--deck-yellow);
-  color: #171306;
-  padding: 0.4rem 0.55rem;
-  font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
-  font-size: 0.56rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.portfolio-feature__content {
-  padding: 1.4rem;
-}
-
-.portfolio-feature__content > p:first-child {
-  margin: 0 0 0.65rem;
-  font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  color: var(--deck-yellow);
-  text-transform: uppercase;
-}
-
-.portfolio-feature__content h3 {
-  margin: 0;
-  font-family: "Space Grotesk Variable", "Space Grotesk", sans-serif;
-  font-size: clamp(1.55rem, 3vw, 2.2rem);
-  font-weight: 600;
-  letter-spacing: -0.035em;
-}
-
-.portfolio-feature__description {
-  margin: 0.8rem 0 1.25rem;
-  color: #b8b49f;
-  font-size: 0.9rem;
-  line-height: 1.65;
-}
-
-.portfolio-feature__content button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border: 0;
-  background: transparent;
-  color: #f7e5a8;
-  padding: 0.25rem 0;
-  font: inherit;
-  font-size: 0.83rem;
-  font-weight: 650;
-  cursor: pointer;
-}
-
-.portfolio-feature__content button:hover {
-  color: var(--deck-yellow);
-}
-
-.portfolio-deck__note {
-  position: relative;
-  z-index: 1;
-  margin: 1.15rem 0 0;
-  color: #8e8b7b;
-  font-size: 0.78rem;
-}
 
 @keyframes portfolio-card-in {
   from {
@@ -1476,40 +1216,6 @@ details[open] .faq-icon {
     background-size: 2.5rem 2.5rem;
   }
 
-  .portfolio-deck {
-    padding: 0.85rem;
-  }
-
-  .portfolio-deck__toolbar {
-    grid-template-columns: 1fr auto;
-  }
-
-  .portfolio-deck__focus-label {
-    display: none;
-  }
-
-  .portfolio-deck__layout {
-    grid-template-columns: 1fr;
-  }
-
-  .portfolio-deck__rail {
-    grid-template-columns: repeat(3, minmax(12.5rem, 1fr));
-    margin-inline: -0.85rem;
-    padding: 0.25rem 0.85rem 0.8rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-  }
-
-  .portfolio-tile,
-  .portfolio-tile:nth-child(3) {
-    grid-column: auto;
-    width: auto;
-    scroll-snap-align: start;
-  }
-
-  .portfolio-deck__note {
-    line-height: 1.55;
-  }
 
   .project-showcase {
     min-height: 20rem;
@@ -1747,6 +1453,7 @@ details[open] .faq-icon {
 .portfolio-deck {
   --deck-yellow: #3485ff;
   --deck-cyan: #8db8ff;
+  position: relative;
   width: min(calc(100vw - 2rem), 88rem);
   margin-left: 50%;
   padding: 0;
@@ -1758,19 +1465,39 @@ details[open] .faq-icon {
   transform: translateX(-50%);
 }
 
+.portfolio-deck--empty {
+  min-height: 18rem;
+  display: grid;
+  place-items: center;
+  border-block: 1px solid rgb(255 255 255 / 0.08);
+  color: #9ca3af;
+  text-align: center;
+}
+
+.portfolio-deck--empty p {
+  max-width: 32rem;
+  margin: 0;
+  line-height: 1.7;
+}
+
 .portfolio-deck::before {
   display: none;
 }
 
 .portfolio-deck__toolbar {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(18rem, 1fr);
+  align-items: center;
   gap: 1rem;
   min-height: 0;
   padding: 0 0 1rem;
+  font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
   color: var(--deck-yellow);
   font-size: 0.62rem;
   letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 .portfolio-deck__imagine {
@@ -1829,6 +1556,8 @@ details[open] .faq-icon {
 }
 
 .portfolio-deck__layout {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(18rem, 1fr);
   gap: 1rem;
@@ -1868,9 +1597,17 @@ details[open] .faq-icon {
   transform: rotate(0.7deg);
 }
 
+.portfolio-tile:nth-child(2) {
+  animation-delay: 45ms;
+}
+
 .portfolio-tile:nth-child(3),
 .portfolio-tile:nth-child(4) {
   transform: rotate(-0.35deg);
+}
+
+.portfolio-tile:nth-child(3) {
+  animation-delay: 90ms;
 }
 
 .portfolio-tile:nth-child(4),
@@ -1895,6 +1632,7 @@ details[open] .faq-icon {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   filter: saturate(0.83) brightness(0.91);
   transition: filter 320ms var(--ease-precise), transform 620ms var(--ease-precise);
 }
@@ -1937,14 +1675,21 @@ details[open] .faq-icon {
 }
 
 .portfolio-tile__meta span {
+  overflow: hidden;
+  font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
   color: #8792a8;
   font-size: 0.53rem;
   letter-spacing: 0.17em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .portfolio-tile__meta strong {
   overflow: hidden;
+  font-family: "Space Grotesk Variable", "Space Grotesk", sans-serif;
   font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+  font-weight: 600;
   letter-spacing: -0.02em;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1964,18 +1709,42 @@ details[open] .faq-icon {
 }
 
 .portfolio-feature__visual {
+  position: relative;
   aspect-ratio: 16 / 10.3;
+  overflow: hidden;
+  background: #0a0b08;
+}
+
+.portfolio-feature__visual::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 38%;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(transparent, rgb(10 10 6 / 0.78));
+}
+
+.portfolio-feature__visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .portfolio-feature__visual > span {
+  position: absolute;
   top: 0.75rem;
   left: 0.75rem;
+  z-index: 2;
   border-radius: 0.28rem;
   background: var(--deck-yellow);
   color: #f5f7fa;
   padding: 0.38rem 0.55rem;
+  font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
   font-size: 0.5rem;
+  font-weight: 700;
   letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 .portfolio-feature__content {
@@ -1984,14 +1753,19 @@ details[open] .faq-icon {
 }
 
 .portfolio-feature__content > p:first-child {
-  margin-bottom: 0.6rem;
+  margin: 0 0 0.6rem;
+  font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
   color: var(--deck-yellow);
   font-size: 0.53rem;
   letter-spacing: 0.17em;
+  text-transform: uppercase;
 }
 
 .portfolio-feature__content h3 {
+  margin: 0;
+  font-family: "Space Grotesk Variable", "Space Grotesk", sans-serif;
   font-size: clamp(1.55rem, 2.2vw, 2rem);
+  font-weight: 600;
   letter-spacing: -0.03em;
 }
 
@@ -2003,8 +1777,21 @@ details[open] .faq-icon {
 }
 
 .portfolio-feature__content button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 0;
+  background: transparent;
   color: #74a7ff;
+  padding: 0.25rem 0;
+  font: inherit;
   font-size: 0.75rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.portfolio-feature__content button:hover {
+  color: var(--deck-yellow);
 }
 
 .portfolio-feature__links {
@@ -2017,6 +1804,8 @@ details[open] .faq-icon {
 }
 
 .portfolio-deck__note {
+  position: relative;
+  z-index: 1;
   margin: 1.45rem 0 0;
   color: #747f92;
   font-size: 0.7rem;

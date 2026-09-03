@@ -63,7 +63,7 @@ test.describe("Arche Labs home", () => {
     await primaryCta.click();
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole("heading", { name: "Arche Pro" })).toBeVisible();
+    await expect(dialog.getByRole("button", { name: "Pro" })).toBeVisible();
 
     const checkboxes = dialog.getByRole("checkbox");
     await checkboxes.nth(0).check();
@@ -108,7 +108,7 @@ test.describe("Arche Labs home", () => {
 
     await page
       .getByRole("navigation", { name: "Navegação móvel" })
-      .getByRole("link", { name: "Serviços" })
+      .getByRole("link", { name: "Projetos" })
       .click();
     await expect(page.getByRole("button", { name: "Abrir menu" })).toBeVisible();
 

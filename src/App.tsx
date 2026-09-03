@@ -35,10 +35,10 @@ import {
   navItems,
   plans,
   processSteps,
-  projectPreviews,
   testimonials,
   type Plan,
 } from "./content/site";
+import { heroProjectPreviews, portfolioProjects } from "./content/portfolio";
 
 type IconComponent = ComponentType<{
   size?: number | string;
@@ -191,7 +191,7 @@ export function App() {
             </Reveal>
 
             <Reveal className="md:col-span-5" delay={0.08}>
-              <ProjectShowcase projects={projectPreviews} />
+              <ProjectShowcase projects={heroProjectPreviews} />
             </Reveal>
           </div>
         </section>
@@ -220,14 +220,14 @@ export function App() {
           <div className="page-shell">
             <Reveal>
               <SectionIntro
-                title="Projetos reais, apresentados com contexto."
-                body="Sem cases inventados. Os primeiros trabalhos serão publicados aqui com problema, solução e resultado."
+                title="Direções criadas para demonstrar nosso trabalho."
+                body="Enquanto os primeiros cases são produzidos, esta seleção mostra decisões de narrativa, composição e conversão aplicadas à própria Arche Labs."
               />
             </Reveal>
 
             <Reveal className="mt-14" delay={0.06}>
               <PortfolioDeck
-                projects={projectPreviews}
+                projects={portfolioProjects}
                 onStartProject={() => setSelectedPlan(recommendedPlan)}
               />
             </Reveal>

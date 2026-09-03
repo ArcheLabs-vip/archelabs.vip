@@ -28,10 +28,7 @@ export function AnimatedNumber({
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    if (reduced) {
-      setValue(target);
-      return;
-    }
+    if (reduced) return;
 
     const el = ref.current;
     if (!el) return;
@@ -61,7 +58,10 @@ export function AnimatedNumber({
     return () => observer.disconnect();
   }, [target, duration, reduced]);
 
-  const display = pad > 0 ? String(value).padStart(pad, "0") : String(value);
+  const resolvedValue = reduced ? target : value;
+  const display = pad > 0
+    ? String(resolvedValue).padStart(pad, "0")
+    : String(resolvedValue);
 
   return (
     <span ref={ref} className={`animated-number ${className}`}>

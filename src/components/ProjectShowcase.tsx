@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import type { ProjectPreview } from "../content/site";
+import type { ProjectPreview } from "../content/portfolio";
 
 interface ProjectShowcaseProps {
   projects: ProjectPreview[];
@@ -10,6 +10,7 @@ const ROTATION_INTERVAL = 4600;
 export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const displayedProjects = useMemo(() => projects.slice(0, 3), [projects]);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -21,19 +22,27 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
   }, []);
 
   useEffect(() => {
-    if (projects.length < 2 || reduceMotion) return;
+    if (displayedProjects.length < 2 || reduceMotion) return;
 
     const interval = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % projects.length);
+      setActiveIndex((current) => (current + 1) % displayedProjects.length);
     }, ROTATION_INTERVAL);
 
     return () => window.clearInterval(interval);
-  }, [projects.length, reduceMotion]);
+  }, [displayedProjects.length, reduceMotion]);
 
-  const activeProject = projects[activeIndex];
+  const safeActiveIndex = displayedProjects.length
+    ? activeIndex % displayedProjects.length
+    : 0;
+  const activeProject = displayedProjects[safeActiveIndex];
   const positions = useMemo(
-    () => projects.map((_, index) => (index - activeIndex + projects.length) % projects.length),
-    [activeIndex, projects],
+    () =>
+      displayedProjects.map(
+        (_, index) =>
+          (index - safeActiveIndex + displayedProjects.length) %
+          displayedProjects.length,
+      ),
+    [displayedProjects, safeActiveIndex],
   );
 
   if (!activeProject) return null;
@@ -44,7 +53,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
       aria-label="Prévia animada de trabalhos da Arche Labs"
     >
       <div className="project-showcase__stage" aria-live="off">
-        {projects.map((project, index) => (
+        {displayedProjects.map((project, index) => (
           <figure
             key={`${project.name}-${project.category}`}
             className="project-showcase__card"
@@ -53,9 +62,9 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
           >
             <img
               src={project.image}
-              alt={index === activeIndex ? project.imageAlt : ""}
-              width="1440"
-              height={project.image.includes("mobile") ? "11907" : "900"}
+              alt={index === safeActiveIndex ? project.imageAlt : ""}
+              width={project.imageWidth}
+              height={project.imageHeight}
               fetchPriority={index === 0 ? "high" : "auto"}
               loading={index === 0 ? "eager" : "lazy"}
               decoding="async"
