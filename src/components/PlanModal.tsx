@@ -1,11 +1,12 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, Check, X } from "lucide-react";
-import type { Plan } from "../content/site";
+import { plans, type Plan } from "../content/site";
 import { buildWhatsAppLink } from "../lib/whatsapp";
 
 type PlanModalProps = {
   plan: Plan | null;
   onClose: () => void;
+  onChangePlan?: (plan: Plan) => void;
 };
 
 function getDisplayPrice(basePriceStr: string, hasContentPanel: boolean, hasCare: boolean) {
@@ -26,23 +27,25 @@ function getDisplayPrice(basePriceStr: string, hasContentPanel: boolean, hasCare
   return result;
 }
 
-export function PlanModal({ plan, onClose }: PlanModalProps) {
+export function PlanModal({ plan, onClose, onChangePlan }: PlanModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
   const [contentPanel, setContentPanel] = useState(false);
   const [care, setCare] = useState(false);
   const [observation, setObservation] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
 
-    if (plan && !dialog.open) {
-      dialog.showModal();
+    if (plan) {
+      if (!dialog.open) dialog.showModal();
       document.documentElement.classList.add("modal-scroll-lock");
+    } else {
+      if (dialog.open) dialog.close();
+      document.documentElement.classList.remove("modal-scroll-lock");
     }
-
-    if (!plan && dialog.open) dialog.close();
 
     return () => {
       document.documentElement.classList.remove("modal-scroll-lock");
@@ -73,12 +76,14 @@ export function PlanModal({ plan, onClose }: PlanModalProps) {
     setContentPanel(false);
     setCare(false);
     setObservation("");
+    setIsDropdownOpen(false);
     onClose();
   };
 
   return (
     <dialog
       ref={dialogRef}
+      className="scrollbar-hide"
       aria-labelledby={titleId}
       onCancel={(event) => {
         event.preventDefault();
@@ -95,15 +100,54 @@ export function PlanModal({ plan, onClose }: PlanModalProps) {
               <p className="font-mono text-[0.68rem] tracking-[0.1em] text-electric-light">
                 CONFIGURE SEU PROJETO
               </p>
-              <h2 id={titleId} className="mt-2 font-display text-3xl font-semibold tracking-[-0.045em]">
-                {plan.name}
+              <h2 id={titleId} className="mt-2 font-display text-3xl font-semibold tracking-[-0.045em] flex items-center gap-2">
+                <span>Arche</span>
+                <div 
+                  className={`flex items-center rounded-lg border border-white/[0.08] transition-all duration-500 ease-out overflow-hidden ${
+                    isDropdownOpen ? "bg-white/[0.04] p-1 gap-1" : "bg-white/[0.02] p-1 gap-0"
+                  }`}
+                >
+                  {plans.map(p => {
+                    const isSelected = p.id === plan.id;
+                    const isVisible = isDropdownOpen || isSelected;
+                    
+                    return (
+                      <button
+                        key={p.id}
+                        type="button"
+                        onClick={() => { 
+                           if (!isDropdownOpen) {
+                              setIsDropdownOpen(true);
+                           } else {
+                              onChangePlan?.(p); 
+                              setIsDropdownOpen(false); 
+                           }
+                        }}
+                        className={`font-display text-2xl sm:text-3xl font-semibold rounded-md whitespace-nowrap transition-all duration-500 ease-out overflow-hidden flex items-center justify-center ${
+                          isVisible 
+                            ? "px-3 py-1 opacity-100 max-w-[200px]" 
+                            : "px-0 py-1 opacity-0 max-w-0 border-none"
+                        } ${
+                          !isDropdownOpen && isSelected
+                            ? "bg-white/[0.04] text-electric-light shadow-sm hover:bg-white/[0.08]"
+                            : isDropdownOpen && isSelected
+                              ? "bg-white/[0.08] text-ink shadow-sm"
+                              : "text-muted hover:bg-white/[0.04] hover:text-ink"
+                        }`}
+                      >
+                        {p.name.replace("Arche ", "")}
+                      </button>
+                    )
+                  })}
+                </div>
               </h2>
-              <p className="mt-1 text-sm font-medium text-electric-light transition-all duration-300">
+              <p className="mt-2 text-sm font-medium text-electric-light transition-all duration-300">
                 {displayPrice}
               </p>
             </div>
+            
             <button
-              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/[0.12] text-muted hover:border-white/25 hover:text-ink"
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/[0.12] text-muted hover:border-white/25 hover:text-ink transition-colors"
               type="button"
               aria-label="Fechar configurador"
               onClick={handleClose}

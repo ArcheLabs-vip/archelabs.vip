@@ -2219,3 +2219,21 @@ details[open] .faq-icon {
     animation: none !important;
   }
 }
+
+@keyframes slide-fade-in {
+  0% { opacity: 0; transform: scaleX(0.85) translateX(-8px); transform-origin: left center; }
+  100% { opacity: 1; transform: scaleX(1) translateX(0); transform-origin: left center; }
+}
+
+.animate-slide-fade-in {
+  animation: slide-fade-in 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Scrollbar Utilities */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none !important;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}

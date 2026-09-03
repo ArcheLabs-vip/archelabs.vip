@@ -555,7 +555,7 @@ export function App() {
         </div>
       </footer>
 
-      <PlanModal plan={selectedPlan} onClose={() => setSelectedPlan(null)} />
+      <PlanModal plan={selectedPlan} onClose={() => setSelectedPlan(null)} onChangePlan={setSelectedPlan} />
     </div>
     </>
   );
