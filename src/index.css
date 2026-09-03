@@ -134,6 +134,41 @@ a.button:active {
   -webkit-mask-image: linear-gradient(to bottom, black 15%, transparent 92%);
 }
 
+/* Arche Care uses an enlarged fragment of the brand's diagonal instead of a
+   generic technical grid. The planes stay quiet behind the service copy. */
+.care-brand-plane {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.018), transparent 42%),
+    #11141e;
+}
+
+.care-brand-plane::before,
+.care-brand-plane::after {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  transform: skewX(-24deg);
+  transform-origin: center;
+}
+
+.care-brand-plane::before {
+  top: -18%;
+  right: 5%;
+  width: clamp(5rem, 12vw, 8.5rem);
+  height: 138%;
+  background: linear-gradient(180deg, rgb(52 133 255 / 0.09), rgb(18 103 244 / 0.015));
+  border-inline: 1px solid rgb(52 133 255 / 0.1);
+}
+
+.care-brand-plane::after {
+  top: 8%;
+  right: 24%;
+  width: 1px;
+  height: 92%;
+  background: linear-gradient(180deg, transparent, rgb(255 255 255 / 0.12) 28%, rgb(255 255 255 / 0.04) 74%, transparent);
+}
+
 .edge-light {
   position: relative;
   isolation: isolate;

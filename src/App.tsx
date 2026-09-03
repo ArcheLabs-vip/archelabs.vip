@@ -145,7 +145,6 @@ export function App() {
   const handlePreloaderComplete = useCallback(() => setLoading(false), []);
 
   // Parallax refs for decorative elements
-  const parallaxGridRef = useParallax(0.06);
   const parallaxGlowRef = useParallax(0.1);
   const parallaxOrbitRef = useParallax(0.04);
 
@@ -158,7 +157,6 @@ export function App() {
 
       <main id="conteudo">
         <section id="topo" className="relative min-h-[calc(100dvh-72px)] overflow-hidden">
-          <div ref={parallaxGridRef} className="technical-grid technical-grid-fade absolute inset-0 opacity-60" aria-hidden="true" />
           <div className="page-shell relative grid min-h-[calc(100dvh-72px)] grid-cols-1 items-center gap-10 py-12 md:grid-cols-12 md:py-16">
             <Reveal className="md:col-span-7">
               <p className="eyebrow">ARCHE LABS — PRESENÇA QUE CONVERTE</p>
@@ -345,7 +343,7 @@ export function App() {
               <div className="surface-strong overflow-hidden rounded-2xl">
                 <div className="grid md:grid-cols-12">
                   {/* Left: Copy + Status + CTA */}
-                  <div className="technical-grid relative p-7 md:col-span-6 md:p-10 lg:p-12">
+                  <div className="care-brand-plane relative isolate overflow-hidden p-7 md:col-span-6 md:p-10 lg:p-12">
                     <div className="live-status">
                       <span className="live-dot" aria-hidden="true" />
                       <span className="font-mono text-[0.68rem] tracking-[0.05em] text-electric-light">

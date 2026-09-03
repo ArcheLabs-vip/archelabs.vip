@@ -11,3 +11,4 @@ test-results/
 playwright-report/
 .tmp-lighthouse/
 referencia/
+.impeccable/
