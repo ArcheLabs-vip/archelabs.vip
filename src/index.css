@@ -141,11 +141,29 @@ a.button:active {
 
 .edge-light::before {
   position: absolute;
-  inset: -1px;
+  inset: -2px;
   z-index: -1;
   border-radius: inherit;
   content: "";
-  background: linear-gradient(135deg, rgb(52 133 255 / 0.42), rgb(255 255 255 / 0.04) 38%, transparent 68%);
+  background: linear-gradient(135deg, rgb(52 133 255 / 0.7), rgb(255 255 255 / 0.05) 45%, transparent 80%);
+  filter: blur(8px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .edge-light::before {
+    animation: breathing-glow 3.5s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes breathing-glow {
+  0% {
+    opacity: 0.35;
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(14px);
+  }
 }
 
 .project-showcase {
@@ -626,84 +644,148 @@ a.button:active {
   background: linear-gradient(90deg, #1267f4, rgb(18 103 244 / 0));
 }
 
-/* ── Arche Care: Orbit Animation ── */
+/* ── Arche Care: Security Core Animation ── */
 
-.orbit-container {
+.security-core-container {
   position: relative;
   width: 20rem;
   height: 20rem;
-}
-
-.orbit-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgb(18 103 244 / 0.25), rgb(52 133 255 / 0.08));
-  border: 1px solid rgb(52 133 255 / 0.3);
-  box-shadow: 0 0 2rem rgb(18 103 244 / 0.2);
 }
 
-.orbit-ring {
+.security-core-animator {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  border-radius: 50%;
-  border: 1px solid rgb(52 133 255 / 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.orbit-ring--1 {
-  width: 9rem;
-  height: 9rem;
-  margin-top: -4.5rem;
-  margin-left: -4.5rem;
-  animation: orbit-spin 8s linear infinite;
+.security-core-brackets {
+  position: relative;
+  width: 13rem;
+  height: 13rem;
+  transition: transform 0.5s var(--ease-precise);
 }
 
-.orbit-ring--2 {
-  width: 14rem;
-  height: 14rem;
-  margin-top: -7rem;
-  margin-left: -7rem;
-  animation: orbit-spin 14s linear infinite reverse;
+.security-core-container:hover .security-core-brackets {
+  transform: scale(1.05);
 }
 
-.orbit-ring--3 {
-  width: 19rem;
-  height: 19rem;
-  margin-top: -9.5rem;
-  margin-left: -9.5rem;
-  animation: orbit-spin 22s linear infinite;
-}
-
-.orbit-dot {
+.bracket {
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 2px solid rgb(52 133 255 / 0.4);
+  box-shadow: 0 0 12px rgb(52 133 255 / 0.15);
+  transition: border-color 0.5s var(--ease-precise);
+}
+
+.security-core-container:hover .bracket {
+  border-color: rgb(52 133 255 / 0.7);
+}
+
+.bracket.top-left { top: 0; left: 0; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
+.bracket.top-right { top: 0; right: 0; border-left: none; border-bottom: none; border-top-right-radius: 6px; }
+.bracket.bottom-left { bottom: 0; left: 0; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
+.bracket.bottom-right { bottom: 0; right: 0; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
+
+.security-core-scanner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(52 133 255 / 0.8), transparent);
+  box-shadow: 0 0 10px rgb(52 133 255 / 0.8);
+}
+
+.security-core-ring {
+  position: absolute;
+  width: 9.5rem;
+  height: 9.5rem;
   border-radius: 50%;
-  background: #3485ff;
-  box-shadow: 0 0 8px rgb(52 133 255 / 0.7);
+  border: 1px solid rgb(52 133 255 / 0.2);
+  background: radial-gradient(circle, rgb(52 133 255 / 0.08) 0%, transparent 60%);
 }
 
-.orbit-ring--1 .orbit-dot { top: -3px; left: 50%; margin-left: -3px; }
-.orbit-ring--2 .orbit-dot { top: 50%; right: -3px; margin-top: -3px; }
-.orbit-ring--3 .orbit-dot { bottom: -3px; left: 50%; margin-left: -3px; }
-
-.orbit-ring--2 .orbit-dot:nth-child(2) {
-  top: auto;
-  right: auto;
-  bottom: 12%;
-  left: -3px;
+.security-core-gear {
+  position: absolute;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  border: 2px dashed rgb(52 133 255 / 0.35);
 }
 
-@keyframes orbit-spin {
-  to { transform: rotate(360deg); }
+.security-core-center {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: #11141e;
+  border: 1px solid rgb(52 133 255 / 0.4);
+  box-shadow: 0 0 2rem rgb(18 103 244 / 0.3), inset 0 0 1rem rgb(18 103 244 / 0.2);
+}
+
+/* Entrance Animations triggered by .is-visible from Reveal parent */
+.is-visible .security-core-animator {
+  animation: intro-transform 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.is-visible .security-core-brackets {
+  animation: intro-size 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.is-visible .security-core-center {
+  animation: inner-fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+}
+.is-visible .security-core-ring {
+  animation: inner-fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 1s both, core-pulse 4s ease-in-out 2s infinite;
+}
+.is-visible .security-core-gear {
+  animation: inner-fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both, core-spin 15s linear 2.2s infinite;
+}
+.is-visible .security-core-scanner {
+  animation: core-scan 3.5s ease-in-out 2s infinite alternate both;
+}
+
+/* Keyframes */
+@keyframes intro-transform {
+  0% { transform: rotate(45deg) scale(0.4); opacity: 0; }
+  15% { transform: rotate(45deg) scale(1.1); opacity: 1; }
+  30% { transform: rotate(45deg) scale(1); opacity: 1; }
+  55% { transform: rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes intro-size {
+  0%, 55% { width: 4.5rem; height: 4.5rem; }
+  100% { width: 13rem; height: 13rem; }
+}
+
+@keyframes inner-fade-in {
+  0% { opacity: 0; transform: scale(0.5); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes core-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; border-color: rgb(52 133 255 / 0.2); }
+  50% { transform: scale(1.15); opacity: 1; border-color: rgb(52 133 255 / 0.5); box-shadow: 0 0 2rem rgb(52 133 255 / 0.2); }
+}
+
+@keyframes core-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes core-scan {
+  0% { top: 5%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 95%; opacity: 0; }
 }
 
 /* ── Arche Care: Care Cards ── */
@@ -1109,6 +1191,7 @@ dialog[open] {
 
 details summary {
   list-style: none;
+  position: relative;
 }
 
 details summary::-webkit-details-marker {
@@ -1116,11 +1199,40 @@ details summary::-webkit-details-marker {
 }
 
 .faq-icon {
-  transition: transform 300ms var(--ease-precise);
+  transition: transform 300ms var(--ease-precise), color 300ms var(--ease-precise);
 }
 
 details[open] .faq-icon {
   transform: rotate(45deg);
+}
+
+/* ── FAQ Hover Line ── */
+@media (hover: hover) {
+  details summary::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #1267f4, rgb(52 133 255 / 0.3), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 400ms var(--ease-precise);
+  }
+
+  details summary:hover::after {
+    transform: scaleX(1);
+  }
+
+  details summary:hover .faq-icon {
+    color: #f5f7fa;
+    transform: scale(1.18);
+  }
+
+  details[open] summary:hover .faq-icon {
+    transform: rotate(45deg) scale(1.18);
+  }
 }
 
 @keyframes dialog-in {
@@ -1981,5 +2093,129 @@ details[open] .faq-icon {
 
   .portfolio-deck__note {
     line-height: 1.55;
+  }
+}
+
+/* ══════════════════════════════════════════════════
+   Interactive Animations
+   ══════════════════════════════════════════════════ */
+
+/* ── Cursor Glow ── */
+
+.cursor-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    380px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+    rgb(18 103 244 / 0.07),
+    transparent 70%
+  );
+  transition: opacity 500ms var(--ease-precise);
+}
+
+/* ── Tilt Card ── */
+
+.tilt-card {
+  position: relative;
+  transition: transform 500ms var(--ease-precise);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at var(--shimmer-x, 50%) var(--shimmer-y, 50%),
+    rgb(255 255 255 / 0.055),
+    transparent 55%
+  );
+  transition: opacity 400ms var(--ease-precise);
+  z-index: 1;
+}
+
+.tilt-card:hover::after {
+  opacity: 1;
+}
+
+/* ── Magnetic Wrap ── */
+
+.magnetic-wrap {
+  display: inline-flex;
+  transition: transform 450ms var(--ease-precise);
+}
+
+/* ── Split Text ── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .split-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(1.1em);
+    filter: blur(6px);
+    transition:
+      opacity 650ms var(--ease-precise),
+      transform 650ms var(--ease-precise),
+      filter 650ms var(--ease-precise);
+    transition-delay: var(--word-delay, 0s);
+  }
+
+  .split-word--visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ── Animated Number ── */
+
+.animated-number {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Parallax Layer ── */
+
+.parallax-layer {
+  will-change: transform;
+}
+
+/* ── Reduced Motion: disable all interactive animations ── */
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-glow {
+    display: none;
+  }
+
+  .tilt-card,
+  .magnetic-wrap {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .tilt-card::after {
+    display: none;
+  }
+
+  .split-word {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .parallax-layer {
+    will-change: auto;
+    transform: none !important;
+  }
+
+  .edge-light::before {
+    animation: none !important;
   }
 }

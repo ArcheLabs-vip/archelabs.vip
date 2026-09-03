@@ -13,14 +13,20 @@ import {
   Workflow,
   Wrench,
 } from "lucide-react";
+import { AnimatedNumber } from "./components/AnimatedNumber";
 import { Brand } from "./components/Brand";
+import { CursorGlow } from "./components/CursorGlow";
+import { MagneticWrap } from "./components/MagneticWrap";
 import { Navbar } from "./components/Navbar";
 import { PlanModal } from "./components/PlanModal";
 import { PortfolioDeck } from "./components/PortfolioDeck";
 import { Preloader } from "./components/Preloader";
 import { ProjectShowcase } from "./components/ProjectShowcase";
 import { Reveal } from "./components/Reveal";
+import { SplitText } from "./components/SplitText";
 import { TestimonialMarquee } from "./components/TestimonialMarquee";
+import { TiltCard } from "./components/TiltCard";
+import { useParallax } from "./hooks/useParallax";
 import {
   archeCare,
   careFeatures,
@@ -138,38 +144,51 @@ export function App() {
   const recommendedPlan = plans.find((plan) => plan.featured) ?? plans[0];
   const handlePreloaderComplete = useCallback(() => setLoading(false), []);
 
+  // Parallax refs for decorative elements
+  const parallaxGridRef = useParallax(0.06);
+  const parallaxGlowRef = useParallax(0.1);
+  const parallaxOrbitRef = useParallax(0.04);
+
   return (
     <>
       {loading && <Preloader onComplete={handlePreloaderComplete} />}
+    <CursorGlow />
     <div className="min-h-[100dvh] bg-obsidian text-ink">
       <Navbar items={navItems} onStartProject={() => setSelectedPlan(recommendedPlan)} />
 
       <main id="conteudo">
         <section id="topo" className="relative min-h-[calc(100dvh-72px)] overflow-hidden">
-          <div className="technical-grid technical-grid-fade absolute inset-0 opacity-60" aria-hidden="true" />
+          <div ref={parallaxGridRef} className="technical-grid technical-grid-fade absolute inset-0 opacity-60" aria-hidden="true" />
           <div className="page-shell relative grid min-h-[calc(100dvh-72px)] grid-cols-1 items-center gap-10 py-12 md:grid-cols-12 md:py-16">
             <Reveal className="md:col-span-7">
               <p className="eyebrow">ARCHE LABS — PRESENÇA QUE CONVERTE</p>
-              <h1 className="display-balance mt-5 font-display text-[clamp(2.85rem,5vw,4.1rem)] font-medium leading-[0.95] tracking-[-0.065em] text-ink">
-                <span className="block">Landing pages criadas</span>
-                <span className="block text-[#b9c0cc]">para gerar oportunidades.</span>
-              </h1>
+              <SplitText
+                className="display-balance mt-5 font-display text-[clamp(2.85rem,5vw,4.1rem)] font-medium leading-[0.95] tracking-[-0.065em] text-ink"
+                lines={[
+                  { text: "Landing pages criadas" },
+                  { text: "para gerar oportunidades.", className: "text-[#b9c0cc]" },
+                ]}
+              />
               <p className="body-pretty mt-7 max-w-xl text-base leading-relaxed text-muted md:text-lg">
                 Estratégia, design e desenvolvimento para transformar visitas em contatos e conversas comerciais.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <button
-                  className="button button-primary"
-                  type="button"
-                  onClick={() => setSelectedPlan(recommendedPlan)}
-                >
-                  Iniciar projeto
-                  <ArrowUpRight aria-hidden="true" size={17} strokeWidth={1.7} />
-                </button>
-                <a className="button button-secondary" href="#projetos">
-                  Ver projetos
-                  <ArrowRight aria-hidden="true" size={17} strokeWidth={1.7} />
-                </a>
+                <MagneticWrap>
+                  <button
+                    className="button button-primary"
+                    type="button"
+                    onClick={() => setSelectedPlan(recommendedPlan)}
+                  >
+                    Iniciar projeto
+                    <ArrowUpRight aria-hidden="true" size={17} strokeWidth={1.7} />
+                  </button>
+                </MagneticWrap>
+                <MagneticWrap>
+                  <a className="button button-secondary" href="#projetos">
+                    Ver projetos
+                    <ArrowRight aria-hidden="true" size={17} strokeWidth={1.7} />
+                  </a>
+                </MagneticWrap>
               </div>
             </Reveal>
 
@@ -231,16 +250,18 @@ export function App() {
                 const Icon = differentialIcons[index];
                 return (
                   <Reveal key={item.title} delay={(index % 2) * 0.06}>
-                    <article className="border-t soft-divider py-8 md:min-h-52">
-                      <div className="flex items-center justify-between">
-                        <Icon aria-hidden="true" className="text-electric-light" size={22} strokeWidth={1.55} />
-                        <span className="font-mono text-xs text-muted">{item.number}</span>
-                      </div>
-                      <h3 className="mt-8 max-w-lg font-display text-2xl font-medium tracking-[-0.04em] text-ink">
-                        {item.title}
-                      </h3>
-                      <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted">{item.description}</p>
-                    </article>
+                    <TiltCard>
+                      <article className="border-t soft-divider py-8 md:min-h-52">
+                        <div className="flex items-center justify-between">
+                          <Icon aria-hidden="true" className="text-electric-light" size={22} strokeWidth={1.55} />
+                          <AnimatedNumber target={index + 1} pad={2} className="font-mono text-xs text-muted" />
+                        </div>
+                        <h3 className="mt-8 max-w-lg font-display text-2xl font-medium tracking-[-0.04em] text-ink">
+                          {item.title}
+                        </h3>
+                        <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted">{item.description}</p>
+                      </article>
+                    </TiltCard>
                   </Reveal>
                 );
               })}
@@ -294,13 +315,19 @@ export function App() {
 
             <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-12 lg:grid-rows-2">
               <Reveal className="lg:col-span-5 lg:row-start-1">
-                <PlanCard plan={plans[0]} onSelect={setSelectedPlan} />
+                <TiltCard maxDeg={3}>
+                  <PlanCard plan={plans[0]} onSelect={setSelectedPlan} />
+                </TiltCard>
               </Reveal>
               <Reveal className="lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1" delay={0.08}>
-                <PlanCard plan={plans[1]} onSelect={setSelectedPlan} />
+                <TiltCard maxDeg={3}>
+                  <PlanCard plan={plans[1]} onSelect={setSelectedPlan} />
+                </TiltCard>
               </Reveal>
               <Reveal className="lg:col-span-5 lg:row-start-2" delay={0.05}>
-                <PlanCard plan={plans[2]} onSelect={setSelectedPlan} />
+                <TiltCard maxDeg={3}>
+                  <PlanCard plan={plans[2]} onSelect={setSelectedPlan} />
+                </TiltCard>
               </Reveal>
             </div>
 
@@ -344,21 +371,22 @@ export function App() {
                     </a>
                   </div>
 
-                  {/* Right: Orbit (desktop) */}
+                  {/* Right: Security Core (desktop) */}
                   <div className="hidden items-center justify-center border-l border-white/[0.08] md:col-span-6 md:flex">
-                    <div className="orbit-container" aria-hidden="true">
-                      <div className="orbit-center">
-                        <LifeBuoy className="text-electric-light" size={24} strokeWidth={1.5} />
+                    <div ref={parallaxOrbitRef} className="security-core-container group" aria-hidden="true">
+                      <div className="security-core-animator">
+                        <div className="security-core-brackets">
+                          <div className="bracket top-left" />
+                          <div className="bracket top-right" />
+                          <div className="bracket bottom-left" />
+                          <div className="bracket bottom-right" />
+                          <div className="security-core-scanner" />
+                        </div>
                       </div>
-                      <div className="orbit-ring orbit-ring--1">
-                        <span className="orbit-dot" />
-                      </div>
-                      <div className="orbit-ring orbit-ring--2">
-                        <span className="orbit-dot" />
-                        <span className="orbit-dot" />
-                      </div>
-                      <div className="orbit-ring orbit-ring--3">
-                        <span className="orbit-dot" />
+                      <div className="security-core-ring" />
+                      <div className="security-core-gear" />
+                      <div className="security-core-center">
+                        <LifeBuoy className="text-electric-light transition-transform duration-500 group-hover:scale-110" size={24} strokeWidth={1.5} />
                       </div>
                     </div>
                   </div>
@@ -374,22 +402,24 @@ export function App() {
 
                       return (
                         <Reveal key={feature.icon} delay={index * 0.06}>
-                          <article className="care-card h-full">
-                            <div className="care-card__icon">
-                              <FeatureIcon
-                                aria-hidden="true"
-                                className={iconAnim}
-                                size={18}
-                                strokeWidth={1.6}
-                              />
-                            </div>
-                            <h3 className="mt-4 text-sm font-semibold text-ink">
-                              {feature.title}
-                            </h3>
-                            <p className="mt-2 text-[0.8rem] leading-relaxed text-muted">
-                              {feature.detail}
-                            </p>
-                          </article>
+                          <TiltCard>
+                            <article className="care-card h-full">
+                              <div className="care-card__icon">
+                                <FeatureIcon
+                                  aria-hidden="true"
+                                  className={iconAnim}
+                                  size={18}
+                                  strokeWidth={1.6}
+                                />
+                              </div>
+                              <h3 className="mt-4 text-sm font-semibold text-ink">
+                                {feature.title}
+                              </h3>
+                              <p className="mt-2 text-[0.8rem] leading-relaxed text-muted">
+                                {feature.detail}
+                              </p>
+                            </article>
+                          </TiltCard>
                         </Reveal>
                       );
                     })}
@@ -441,7 +471,7 @@ export function App() {
 
         <section className="closing-cta section-space relative overflow-hidden" aria-labelledby="closing-cta-title">
           <div className="technical-grid absolute inset-0 opacity-40" aria-hidden="true" />
-          <div className="closing-cta__glow" aria-hidden="true" />
+          <div ref={parallaxGlowRef} className="closing-cta__glow" aria-hidden="true" />
           <Reveal className="page-shell relative">
             <div className="closing-cta__panel">
               <div className="closing-cta__topline">
@@ -477,14 +507,16 @@ export function App() {
                       </li>
                     ))}
                   </ul>
-                  <button
-                    className="button closing-cta__button"
-                    type="button"
-                    onClick={() => setSelectedPlan(recommendedPlan)}
-                  >
-                    Tirar meu projeto do papel
-                    <ArrowUpRight aria-hidden="true" size={18} strokeWidth={1.8} />
-                  </button>
+                  <MagneticWrap className="w-full">
+                    <button
+                      className="button closing-cta__button"
+                      type="button"
+                      onClick={() => setSelectedPlan(recommendedPlan)}
+                    >
+                      Tirar meu projeto do papel
+                      <ArrowUpRight aria-hidden="true" size={18} strokeWidth={1.8} />
+                    </button>
+                  </MagneticWrap>
                   <p className="closing-cta__note">Conte sua ideia e receba um escopo inicial.</p>
                 </aside>
               </div>
