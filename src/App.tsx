@@ -536,6 +536,9 @@ export function App() {
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
               Sites que conectam. Resultados que ficam.
             </p>
+            <a href="mailto:suporte@archelabs.vip" className="mt-2 block text-sm font-medium text-ink hover:underline">
+              suporte@archelabs.vip
+            </a>
           </div>
           <nav aria-label="Navegação do rodapé" className="flex flex-wrap gap-x-7 gap-y-3 md:col-span-5 md:justify-end">
             {navItems.map((item) => (
