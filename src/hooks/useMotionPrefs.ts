@@ -21,13 +21,3 @@ export function useReducedMotion(): boolean {
   return reduced;
 }
 
-/**
- * Returns `true` when the primary pointer can hover (i.e. not a touch device).
- * Safe to call during render — returns a static snapshot.
- */
-export function canHover(): boolean {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(hover: hover)").matches
-  );
-}

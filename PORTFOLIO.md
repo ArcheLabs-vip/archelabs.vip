@@ -1,47 +1,38 @@
-# Portfólio da Arche Labs
+# Catálogo de templates
 
-Os itens temporários permanecem publicados com `status: "demo"` até serem
-substituídos por cases reais. O componente não gera projetos automaticamente:
-`portfolioProjects`, em `src/content/portfolio.ts`, é a fonte única da coleção.
+A fonte única é `src/content/portfolio.ts`.
 
-## Substituir uma demonstração por um projeto real
+## Planos e coleções
 
-1. Crie `public/assets/projects/nome-do-projeto/`.
-2. Adicione a imagem de capa em WebP ou AVIF.
-3. Substitua uma entrada de `portfolioProjects`, preservando um `id` único.
-4. Altere `status` de `"demo"` para `"published"`.
-5. Informe as dimensões reais em `imageWidth` e `imageHeight`.
-6. Escreva um `imageAlt` que descreva o que a imagem comprova.
-7. Se houver um destino público, adicione `href` com uma URL HTTPS.
+- `collectionPlans` relaciona o ID do plano aos IDs das coleções.
+- `projectCollections` define os nomes públicos de cada coleção.
+- `portfolioProjects` contém os templates, imagens e descrições.
 
-Exemplo:
+Start inclui `essencial` e `presenca`. Pro inclui `aura` e pode receber novas coleções. Coleções sem templates exibem o estado “Em breve”, sem imagens fictícias.
 
-```ts
-{
-  id: "cliente-projeto",
-  status: "published",
-  name: "Nome do projeto",
-  category: "Landing page",
-  description: "O problema resolvido e o resultado principal.",
-  image: "/assets/projects/cliente-projeto/cover.webp",
-  imageAlt: "Página inicial do projeto Nome do projeto",
-  imageWidth: 1440,
-  imageHeight: 900,
-  href: "https://projeto-do-cliente.com/",
-}
-```
+## Adicionar um template
 
-## Hero
+1. Prepare o WebP principal e, quando disponíveis, suas variantes de 480 e 960 px em `public/assets/projects/<colecao>/`.
+2. Cadastre um ID único, `collectionId`, nome, categoria, descrição e texto alternativo.
+3. Informe `image`, `imageWidth` e `imageHeight` reais.
+4. Informe `thumbnail` explicitamente. Sem ela, a galeria usa a imagem principal. Se a miniatura falhar, a interface tenta a principal uma vez.
+5. Informe `imageSrcSet` com URLs e larguras reais para a prévia responsiva.
 
-As três cenas do hero ficam em `heroProjectPreviews`. Elas são independentes da
-coleção completa; adicionar cases ao portfólio não altera o primeiro viewport.
+Exemplo de atributos de imagem:
 
-## Verificação antes de publicar
+`thumbnail: "/assets/projects/aura/aura-academias-480.webp"`  
+`imageSrcSet: "/assets/projects/aura/aura-academias-480.webp 480w, /assets/projects/aura/aura-academias-960.webp 960w, /assets/projects/aura/aura-academias.webp 1400w"`
 
-```bash
-npm run typecheck
-npm run lint
-npm test
-npm run build
-npm run test:e2e
-```
+Não cadastrar um caminho sem o arquivo correspondente. Os testes verificam a existência das imagens do catálogo.
+
+`status: "published"` neste catálogo indica um template disponível, não prova de um case real de cliente. O campo opcional `href` é metadado e não abre uma demonstração na galeria atual. O CTA envia o plano, a coleção e o template para o WhatsApp.
+
+## Adicionar uma coleção
+
+Adicione seu ID/nome em `projectCollections` e o ID em `collectionPlans`. Depois inclua os templates com esse `collectionId`. Não é necessário editar o componente da galeria.
+
+## Hero e validação
+
+O hero utiliza uma cena própria de academia em `src/redesign/components/Hero.tsx`; não depende de um catálogo separado de previews.
+
+Execute `npm run lint`, `npm test`, `npm run test:e2e` e `npm run build` após alterar o catálogo.
