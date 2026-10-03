@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-test("collections, template navigation, empty Aura and contact links", async ({ page }) => {
+test("collections, live templates, Aura and contact links", async ({ page }) => {
+  test.setTimeout(90_000);
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   page.on("response", response => { if (response.status() >= 400) errors.push(String(response.status()) + " " + response.url()); });
@@ -9,32 +10,55 @@ test("collections, template navigation, empty Aura and contact links", async ({ 
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Toda venda");
   const works = page.locator("#trabalhos");
   await works.getByRole("button", { name: "Coleção Presença", exact: true }).click();
-  await works.getByRole("button", { name: "Restaurantes", exact: true }).click();
-  await expect(works.locator("h3")).toHaveText("Restaurantes");
-  const message = new URL((await works.getByRole("link").getAttribute("href"))!).searchParams.get("text")!;
+  await works.getByRole("button", { name: "Restaurante", exact: true }).click();
+  await expect(works.locator("h3")).toHaveText("Restaurante");
+  const message = new URL((await works.getByRole("link", { name: "Quero esse template" }).getAttribute("href"))!).searchParams.get("text")!;
   expect(message).toContain("Arche Start");
-  expect(message).toContain("Presença Restaurantes");
+  expect(message).toContain("Presença Restaurante");
   await works.getByRole("button", { name: "Arche Pro", exact: true }).click();
-  await expect(works.getByRole("status")).toContainText("disponíveis aqui em breve");
-  await expect(works.locator("[data-template]")).toHaveCount(0);
-  await works.getByRole("button", { name: "Explorar coleções do Start" }).click();
-  await expect(works.locator("h3")).toHaveText("Restaurantes");
+  await expect(works.locator("[data-template]")).toHaveCount(1);
+  await expect(works.locator("h3")).toHaveText("Spa");
+  const aura = works.locator("iframe");
+  await expect(aura).toHaveAttribute("src", "/previews/pro/aura/spa/");
+  await expect(aura.contentFrame().locator("body")).toContainText("Spa");
+  await aura.contentFrame().locator('a[href$="/blog"]:visible').first().click();
+  await expect.poll(() => aura.contentFrame().locator("body").evaluate(() => location.pathname)).toMatch(/\/blog\/?$/);
+  await expect(aura.contentFrame().locator("h1")).toBeVisible();
+  await works.getByRole("button", { name: "Recarregar prévia" }).click();
+  await expect(works.locator("iframe").contentFrame().locator("body")).toContainText("Spa");
+  await works.getByRole("button", { name: "Arche Start", exact: true }).click();
+  await expect(works.locator("h3")).toHaveText("Restaurante");
+  test.setTimeout(90_000);
   for (const collection of ["Coleção Essencial", "Coleção Presença"]) {
     await works.getByRole("button", { name: collection, exact: true }).click();
     const buttons = works.locator("[data-template]");
     await expect(buttons).toHaveCount(12);
     for (let i = 0; i < 12; i++) {
       await buttons.nth(i).click();
-      const preview = works.locator("img[alt]:not([alt=''])");
+      const preview = works.locator("iframe");
       await expect(preview).toBeVisible();
-      await preview.evaluate(async (image: HTMLImageElement) => { await image.decode(); });
+      await expect(preview.contentFrame().locator("body")).not.toBeEmpty();
+      await expect(preview.contentFrame().locator("h1")).toBeVisible();
+      await expect(preview.contentFrame().locator(".demo-notice")).toContainText("Modelo demonstrativo — dados, imagens e valores são ilustrativos.");
+      const thumbnail = buttons.nth(i).locator("img");
+      await thumbnail.evaluate(async (image: HTMLImageElement) => { await image.decode(); });
     }
   }
   await works.getByRole("button", { name: "Próximo template" }).click();
-  await expect(works.locator("h3")).toHaveText("Academias");
+  await expect(works.locator("h3")).toHaveText("Academia");
   await works.getByRole("button", { name: "Template anterior" }).click();
-  await expect(works.locator("h3")).toHaveText("Veterinárias");
+  await expect(works.locator("h3")).toHaveText("Clínica Veterinária");
   await expect(page.locator("footer").getByRole("link", { name: "Instagram" })).toHaveAttribute("href", "https://www.instagram.com/archelabs.br/");
+  await works.getByRole("button", { name: "Celular", exact: true }).click();
+  await expect.poll(() => works.locator("iframe").contentFrame().locator("body").evaluate(() => innerWidth)).toBe(390);
+  await works.getByRole("button", { name: "Tablet", exact: true }).click();
+  await expect.poll(() => works.locator("iframe").contentFrame().locator("body").evaluate(() => innerWidth)).toBe(768);
+  await works.getByRole("button", { name: "Desktop", exact: true }).click();
+  await expect.poll(() => works.locator("iframe").contentFrame().locator("body").evaluate(() => innerWidth)).toBe(1440);
+  await works.locator("iframe").contentFrame().locator("body").evaluate(() => scrollTo(0, 600));
+  await expect.poll(() => works.locator("iframe").contentFrame().locator("body").evaluate(() => scrollY)).toBeGreaterThan(0);
+  await works.getByRole("button", { name: "Recarregar prévia" }).click();
+  await expect.poll(() => works.locator("iframe").contentFrame().locator("body").evaluate(() => scrollY)).toBe(0);
   expect(errors).toEqual([]);
 });
 

@@ -18,6 +18,7 @@ export interface PortfolioProject extends ProjectPreview {
   thumbnail?: string;
   imageSrcSet?: string;
   href?: string;
+  previewUrl: string;
 }
 
 export const projectCollections = [
@@ -35,8 +36,9 @@ export const portfolioProjects: PortfolioProject[] = [
   // ESSENCIAL
   {
     id: "essencial-academias",
+    previewUrl: "/previews/start/essencial/academia/",
     status: "published",
-    name: "Essencial Academias",
+    name: "Essencial Academia",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Design focado em conversão para academias e estúdios fitness.",
@@ -50,8 +52,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-advocacia",
+    previewUrl: "/previews/start/essencial/escritorio-de-advocacia/",
     status: "published",
-    name: "Essencial Advocacia",
+    name: "Essencial Escritório de Advocacia",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Elegância e autoridade para escritórios de advocacia.",
@@ -65,8 +68,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-clinicas-medicas",
+    previewUrl: "/previews/start/essencial/clinica-medica/",
     status: "published",
-    name: "Essencial Clínicas Médicas",
+    name: "Essencial Clínica Médica",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Confiança e clareza para clínicas médicas e consultórios.",
@@ -80,8 +84,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-contabilidade",
+    previewUrl: "/previews/start/essencial/escritorio-de-contabilidade/",
     status: "published",
-    name: "Essencial Contabilidade",
+    name: "Essencial Escritório de Contabilidade",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Seriedade e competência para escritórios de contabilidade.",
@@ -95,8 +100,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-escolas-e-cursos",
+    previewUrl: "/previews/start/essencial/escola/",
     status: "published",
-    name: "Essencial Escolas e Cursos",
+    name: "Essencial Escola",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Apresentação estruturada para atrair novos alunos.",
@@ -110,8 +116,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-estetica",
+    previewUrl: "/previews/start/essencial/clinica-de-estetica/",
     status: "published",
-    name: "Essencial Estética",
+    name: "Essencial Clínica de Estética",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Design atraente para clínicas de estética e bem-estar.",
@@ -125,8 +132,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-imobiliarias",
+    previewUrl: "/previews/start/essencial/imobiliaria/",
     status: "published",
-    name: "Essencial Imobiliárias",
+    name: "Essencial Imobiliária",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Foco na apresentação de imóveis e captação de leads.",
@@ -140,8 +148,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-odontologia",
+    previewUrl: "/previews/start/essencial/clinica-odontologica/",
     status: "published",
-    name: "Essencial Odontologia",
+    name: "Essencial Clínica Odontológica",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Um sorriso impecável desde o primeiro contato digital.",
@@ -155,8 +164,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-psicologia",
+    previewUrl: "/previews/start/essencial/consultorio-de-psicologia/",
     status: "published",
-    name: "Essencial Psicologia",
+    name: "Essencial Consultório de Psicologia",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Um espaço seguro e profissional para atendimento online e presencial.",
@@ -170,8 +180,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-restaurantes",
+    previewUrl: "/previews/start/essencial/restaurante/",
     status: "published",
-    name: "Essencial Restaurantes",
+    name: "Essencial Restaurante",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Apresentação focada em conversão para delivery e reservas.",
@@ -185,8 +196,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-servicos-residenciais",
+    previewUrl: "/previews/start/essencial/servico-residencial/",
     status: "published",
-    name: "Essencial Serviços Residenciais",
+    name: "Essencial Serviço Residencial",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Clareza e confiança para contratação de serviços.",
@@ -200,8 +212,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "essencial-veterinarias",
+    previewUrl: "/previews/start/essencial/clinica-veterinaria/",
     status: "published",
-    name: "Essencial Veterinárias",
+    name: "Essencial Clínica Veterinária",
     category: "Coleção Essencial",
     collectionId: "essencial",
     description: "Cuidado e atenção refletidos no ambiente digital.",
@@ -216,8 +229,9 @@ export const portfolioProjects: PortfolioProject[] = [
   // PRESENÇA
   {
     id: "presenca-academias",
+    previewUrl: "/previews/start/presenca/academia/",
     status: "published",
-    name: "Presença Academias",
+    name: "Presença Academia",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Visual vibrante e dinâmico para academias.",
@@ -231,8 +245,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-advocacia",
+    previewUrl: "/previews/start/presenca/escritorio-de-advocacia/",
     status: "published",
-    name: "Presença Advocacia",
+    name: "Presença Escritório de Advocacia",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Uma presença imponente e tradicional para escritórios.",
@@ -246,8 +261,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-clinicas-medicas",
+    previewUrl: "/previews/start/presenca/clinica-medica/",
     status: "published",
-    name: "Presença Clínicas Médicas",
+    name: "Presença Clínica Médica",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Layout limpo e acolhedor para a área da saúde.",
@@ -261,8 +277,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-contabilidade",
+    previewUrl: "/previews/start/presenca/escritorio-de-contabilidade/",
     status: "published",
-    name: "Presença Contabilidade",
+    name: "Presença Escritório de Contabilidade",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Transparência e modernidade para serviços contábeis.",
@@ -276,8 +293,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-escolas-e-cursos",
+    previewUrl: "/previews/start/presenca/escola/",
     status: "published",
-    name: "Presença Escolas e Cursos",
+    name: "Presença Escola",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Uma jornada visual inspiradora para o ensino.",
@@ -291,8 +309,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-estetica",
+    previewUrl: "/previews/start/presenca/clinica-de-estetica/",
     status: "published",
-    name: "Presença Estética",
+    name: "Presença Clínica de Estética",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Beleza e bem-estar em destaque no seu portfólio digital.",
@@ -306,8 +325,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-imobiliarias",
+    previewUrl: "/previews/start/presenca/imobiliaria/",
     status: "published",
-    name: "Presença Imobiliárias",
+    name: "Presença Imobiliária",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Valorizando cada imóvel com um layout sofisticado.",
@@ -321,8 +341,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-odontologia",
+    previewUrl: "/previews/start/presenca/clinica-odontologica/",
     status: "published",
-    name: "Presença Odontologia",
+    name: "Presença Clínica Odontológica",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Destaque para o sorriso e a estrutura do consultório.",
@@ -336,8 +357,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-psicologia",
+    previewUrl: "/previews/start/presenca/consultorio-de-psicologia/",
     status: "published",
-    name: "Presença Psicologia",
+    name: "Presença Consultório de Psicologia",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Acolhimento e profissionalismo para profissionais de psicologia.",
@@ -351,8 +373,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-restaurantes",
+    previewUrl: "/previews/start/presenca/restaurante/",
     status: "published",
-    name: "Presença Restaurantes",
+    name: "Presença Restaurante",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Experiência visual deliciosa para o setor gastronômico.",
@@ -366,8 +389,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-servicos-residenciais",
+    previewUrl: "/previews/start/presenca/servico-residencial/",
     status: "published",
-    name: "Presença Serviços Residenciais",
+    name: "Presença Serviço Residencial",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Profissionalismo em destaque para conquistar clientes.",
@@ -381,8 +405,9 @@ export const portfolioProjects: PortfolioProject[] = [
   },
   {
     id: "presenca-veterinarias",
+    previewUrl: "/previews/start/presenca/clinica-veterinaria/",
     status: "published",
-    name: "Presença Veterinárias",
+    name: "Presença Clínica Veterinária",
     category: "Coleção Presença",
     collectionId: "presenca",
     description: "Uma apresentação empática e profissional para clínicas.",
@@ -393,5 +418,21 @@ export const portfolioProjects: PortfolioProject[] = [
     imageWidth: 1400,
     imageHeight: 900,
     imagePosition: "center top",
-  }
+  },
+  {
+    id: "aura-spa",
+    previewUrl: "/previews/pro/aura/spa/",
+    status: "published",
+    name: "Aura Spa",
+    category: "Coleção Aura",
+    collectionId: "aura",
+    description: "Uma experiência acolhedora para spas, tratamentos e bem-estar, com páginas de serviços e blog.",
+    image: "/assets/projects/aura/aura-spa.webp",
+    thumbnail: "/assets/projects/aura/aura-spa-480.webp",
+    imageSrcSet: "/assets/projects/aura/aura-spa-480.webp 480w, /assets/projects/aura/aura-spa-960.webp 960w, /assets/projects/aura/aura-spa.webp 1400w",
+    imageAlt: "Coleção Aura para Spa",
+    imageWidth: 1400,
+    imageHeight: 900,
+    imagePosition: "center top",
+  },
 ];

@@ -24,6 +24,10 @@ Sem número configurado, o WhatsApp recebe a mensagem sem destinatário fixo. O 
 
 A galeria envia plano, coleção e template diretamente ao WhatsApp. O configurador de planos permite escolher adicionais e observações; é um fluxo independente.
 
+A seleção usa prints atuais e exibe os templates funcionando em desktop (1440 px), tablet (768 px) e celular (390 px). São 12 templates Essencial, 12 Presença e o Spa Aura. Cores e coleção Natural ficam fora do site. Apenas arquivos compilados das prévias são publicados; as páginas e exportações de código da biblioteca não são copiadas.
+
+Para atualizar as prévias e miniaturas, primeiro execute `npm run build` no projeto irmão `../templates`, depois execute `node scripts/sync-template-previews.mjs` neste projeto. O script exige a biblioteca e suas dependências locais, mas o site publicado funciona sozinho. `public/previews/` contém as páginas e assets de cada template; mantenha a resolução de `index.html` por diretório na hospedagem para os links internos funcionarem.
+
 ## Verificação
 
 `npm run lint` — ESLint.  

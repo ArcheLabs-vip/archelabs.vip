@@ -4,6 +4,7 @@ import { waLink } from "../data";
 import { collectionPlans, projectCollections, portfolioProjects } from "../../content/portfolio";
 import { ArrowIcon, Reveal, SectionLabel } from "./Reveal";
 import { ProjectImage } from "./ProjectImage";
+import { TemplatePreview } from "./TemplatePreview";
 import { cn } from "../utils/cn";
 
 export function Showcase() {
@@ -99,10 +100,10 @@ export function Showcase() {
             <div className="overflow-hidden rounded-xl border border-white/12 bg-graphite">
               <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
                 <div className="flex gap-1.5" aria-hidden="true">{[0,1,2].map((dot) => <span key={dot} className="h-2 w-2 rounded-full bg-white/20" />)}</div>
-                <span className="truncate text-xs text-muted">{item.name}</span>
+                <span className="truncate text-xs text-muted">{item.name.replace(/^([^ ]+) /, "$1 - ")}</span>
                 <span className="shrink-0 font-mono text-[10px] text-muted">{String(index + 1).padStart(2,"0")} / {templates.length}</span>
               </div>
-              <ProjectImage key={item.id} project={item} className="block aspect-[14/9] w-full object-cover object-top" />
+              <TemplatePreview key={item.id} project={item} />
             </div>
             <div className="mt-5 flex items-start justify-between gap-4">
               <div aria-live="polite" aria-atomic="true">

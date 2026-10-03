@@ -16,7 +16,10 @@ Start inclui `essencial` e `presenca`. Pro inclui `aura` e pode receber novas co
 2. Cadastre um ID único, `collectionId`, nome, categoria, descrição e texto alternativo.
 3. Informe `image`, `imageWidth` e `imageHeight` reais.
 4. Informe `thumbnail` explicitamente. Sem ela, a galeria usa a imagem principal. Se a miniatura falhar, a interface tenta a principal uma vez.
-5. Informe `imageSrcSet` com URLs e larguras reais para a prévia responsiva.
+5. Informe `imageSrcSet` com URLs e larguras reais para as imagens responsivas.
+6. Informe `previewUrl` apontando para a página inicial do template compilado em `public/previews/`. A galeria carrega essa URL em um iframe interativo; as imagens são usadas apenas nas miniaturas.
+
+Para sincronizar os 25 templates atuais, compile o projeto irmão `../templates` e execute `node scripts/sync-template-previews.mjs` neste projeto. O script utiliza os prints originais, gera os WebPs e copia apenas as prévias compiladas. Cores e coleção Natural são excluídos, assim como os arquivos e páginas de consulta de código da biblioteca.
 
 Exemplo de atributos de imagem:
 

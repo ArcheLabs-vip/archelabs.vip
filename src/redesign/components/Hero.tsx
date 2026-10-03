@@ -1,24 +1,28 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useAnimationVisibility } from "../hooks/useAnimationVisibility";
+import { portfolioProjects, type PortfolioProject } from "../../content/portfolio";
 import { waLink } from "../data";
 import { ArrowIcon } from "./Reveal";
 import { cn } from "../utils/cn";
 
 function useLoop(duration = 8000) {
-  const [p, setP] = useState(0);
+  const [{ p, cycle }, setFrame] = useState({ p: 0, cycle: 0 });
+  const elapsed = useRef(0);
   const { ref, running, reducedMotion } = useAnimationVisibility<HTMLDivElement>();
   useEffect(() => {
     if (!running) return;
     let raf = 0;
-    const start = performance.now();
+    let previous = performance.now();
     const tick = (t: number) => {
-      setP(((t - start) % duration) / duration);
+      elapsed.current += t - previous;
+      previous = t;
+      setFrame({ p: (elapsed.current % duration) / duration, cycle: Math.floor(elapsed.current / duration) });
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [duration, running]);
-  return { ref, p: reducedMotion ? 1 : p };
+  return { ref, p: reducedMotion ? 1 : p, cycle };
 }
 
 const Section = ({ label, h, children }: { label: string; h: string; children?: ReactNode }) => (
@@ -78,16 +82,19 @@ const Wire = () => (
 );
 
 /* Página final do cliente (exemplo: academia) */
-const Final = () => (
+const heroImageSizes = "(min-width: 1280px) 505px, (min-width: 1024px) 40vw, (min-width: 640px) 576px, calc(100vw - 32px)";
+
+const Final = ({ project }: { project: PortfolioProject }) => (
   <div className="absolute inset-0 overflow-hidden bg-graphite">
     <img
-      src="/assets/projects/essencial/essencial-academias.webp"
-      alt="Landing page da coleção Essencial para academias"
-      srcSet="/assets/projects/essencial/essencial-academias-480.webp 480w, /assets/projects/essencial/essencial-academias-960.webp 960w, /assets/projects/essencial/essencial-academias.webp 1400w"
-      sizes="(min-width: 1024px) 560px, 90vw"
-      width="1400"
-      height="900"
-      className="h-full w-full object-cover object-top"
+      src={project.image}
+      alt={project.imageAlt}
+      srcSet={project.imageSrcSet}
+      sizes={heroImageSizes}
+      width={project.imageWidth}
+      height={project.imageHeight}
+      className="h-full w-full object-contain object-top"
+      data-hero-template={project.id}
     />
   </div>
 );
@@ -108,12 +115,20 @@ function Bracket({ pos }: { pos: "tl" | "tr" | "bl" | "br" }) {
 }
 
 function BuildMockup() {
-  const { ref, p } = useLoop(8000);
+  const { ref, p, cycle } = useLoop(8000);
+  const project = portfolioProjects[cycle % portfolioProjects.length];
+  const nextProject = portfolioProjects[(cycle + 1) % portfolioProjects.length];
+  useEffect(() => {
+    const image = new Image();
+    image.sizes = heroImageSizes;
+    if (nextProject.imageSrcSet) image.srcset = nextProject.imageSrcSet;
+    image.src = nextProject.image;
+  }, [nextProject]);
   const scan = Math.min(1, Math.max(0, (p - 0.12) / 0.5));
   const done = scan >= 1;
   const showToast = p > 0.7 && p < 0.97;
   const wire = useMemo(() => <Wire />, []);
-  const final = useMemo(() => <Final />, []);
+  const final = <Final project={project} />;
 
   return (
     <div ref={ref} className="relative">
@@ -137,7 +152,7 @@ function BuildMockup() {
             {done ? "100%" : `${Math.round(scan * 100)}%`}
           </div>
         </div>
-        <div className="relative h-[330px] sm:h-[360px]">
+        <div className="relative aspect-[16/10]">
           {wire}
           <div className="absolute inset-0" style={{ clipPath: `inset(0 0 ${100 - scan * 100}% 0)` }}>
             {final}
