@@ -114,10 +114,44 @@ function Bracket({ pos }: { pos: "tl" | "tr" | "bl" | "br" }) {
   );
 }
 
+// Shuffle every round, favoring a different collection from the previous template.
+function shuffleHeroProjects(previous?: PortfolioProject): PortfolioProject[] {
+  const remaining = [...portfolioProjects];
+  for (let i = remaining.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [remaining[i], remaining[j]] = [remaining[j], remaining[i]];
+  }
+  const shuffled: PortfolioProject[] = [];
+  let last = previous;
+  while (remaining.length) {
+    let index = remaining.findIndex(project => project.collectionId !== last?.collectionId);
+    if (index < 0) index = remaining.findIndex(project => project.id !== last?.id);
+    const [project] = remaining.splice(Math.max(0, index), 1);
+    shuffled.push(project);
+    last = project;
+  }
+  return shuffled;
+}
+
+function useHeroProjects(cycle: number) {
+  const [rotation, setRotation] = useState(() => ({ cycle, projects: shuffleHeroProjects() }));
+  if (rotation.cycle !== cycle) {
+    let projects = rotation.projects;
+    for (let i = rotation.cycle; i < cycle; i++) {
+      const previous = projects[0];
+      projects = projects.slice(1);
+      if (projects.length < 2) {
+        projects = [...projects, ...shuffleHeroProjects(projects.at(-1) ?? previous)];
+      }
+    }
+    setRotation({ cycle, projects });
+  }
+  return { project: rotation.projects[0], nextProject: rotation.projects[1] };
+}
+
 function BuildMockup() {
   const { ref, p, cycle } = useLoop(8000);
-  const project = portfolioProjects[cycle % portfolioProjects.length];
-  const nextProject = portfolioProjects[(cycle + 1) % portfolioProjects.length];
+  const { project, nextProject } = useHeroProjects(cycle);
   useEffect(() => {
     const image = new Image();
     image.sizes = heroImageSizes;
