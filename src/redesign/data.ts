@@ -1,5 +1,6 @@
-// Troque pelo número real da Arche Labs (formato internacional, só dígitos)
-export const WHATSAPP_NUMBER = (import.meta.env.VITE_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
+// Número da Arche Labs em formato internacional, com opção de configuração por ambiente.
+export const WHATSAPP_NUMBER = (import.meta.env.VITE_WHATSAPP_NUMBER ?? "").replace(/\D/g, "") || "5511915932220";
+export const WHATSAPP_DISPLAY = WHATSAPP_NUMBER.replace(/^55(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
 export const EMAIL = "suporte@archelabs.vip";
 export const INSTAGRAM_URL = "https://www.instagram.com/archelabs.br/";
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { EMAIL, INSTAGRAM_URL, waLink } from "../data";
+import { EMAIL, INSTAGRAM_URL, WHATSAPP_DISPLAY, waLink } from "../data";
 import { Logo } from "./Nav";
 import { Reveal } from "./Reveal";
 import { cn } from "../utils/cn";
@@ -89,7 +89,7 @@ export function Footer() {
               <div className="font-mono text-[11px] uppercase tracking-widest text-electric-light">Contato</div>
               <ul className="mt-4 space-y-2 text-sm">
                 <li>
-                  <a href={waLink("Olá, Arche Labs!")} target="_blank" rel="noreferrer" className="text-ink/70 transition hover:text-accent-light">WhatsApp</a>
+                  <a href={waLink("Olá, Arche Labs!")} target="_blank" rel="noreferrer" className="text-ink/70 transition hover:text-accent-light">WhatsApp · {WHATSAPP_DISPLAY}</a>
                 </li>
                 <li>
                   <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="text-ink/70 transition hover:text-accent-light">Instagram</a>
