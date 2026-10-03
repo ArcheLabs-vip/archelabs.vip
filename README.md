@@ -49,3 +49,22 @@ As métricas visuais fixas e os relatos são identificados na interface como ilu
 A limpeza de setembro/2026 moveu os componentes antigos para `referencia/legado/` e os PNGs originais para `referencia/originais-assets/`. Essas pastas não são publicadas e são ignoradas pelo Git: são cópias locais, não um backup remoto.
 
 `dist/`, `artifacts/` e `test-results/` são saídas regeneráveis. O histórico da auditoria está em `ANALISE_PROJETO.md`.
+
+## Deploy na Cloudflare Workers
+
+O projeto usa Workers Static Assets. O `wrangler.jsonc` publica somente `dist/`, compila o site antes do deploy e preserva a resolução das páginas em `/previews/`.
+
+No Workers Builds, conecte `ArcheLabs-vip/archelabs.vip`, branch `main`, com raiz do repositório, build `npm run build` e deploy `npm run deploy`. O nome do Worker deve ser `archelabs-vip`, igual ao arquivo de configuração. Configure `VITE_WHATSAPP_NUMBER` nas variáveis de build quando necessário.
+
+Para publicar pelo terminal já autenticado na Cloudflare:
+
+```sh
+npm ci
+npm run deploy
+```
+
+Para validar a configuração e o build sem publicar:
+
+```sh
+npx wrangler deploy --dry-run
+```
